@@ -29,3 +29,25 @@ console.log(reachDestination(74,20));
 //-->The train will be there in 3.5 hours.
 // a pretty simple one.  the hardest part was finding a way to round to the nearest half or whole number. 
 
+//you are given a number and you need to return two arrays.  
+//The first will have any number that when squared equals a factor of the number given or the number itself.
+// the second array will have any numbers that when cubed equal a factor or the number itself. 
+function factor(n) {
+  var factors=[], sq=[], cub=[];
+  for (var i=0; i<=n; i++){
+    for(var d=0; d<=n; d++){
+      if (i*d===n){ factors.unshift(d);}
+    }
+  }
+  factors.shift();
+  for (var i=2; i<=n; i++){
+    if (factors.indexOf(i*i)!=-1){ sq.push(i);}
+  }
+  for (var i=2; i<=n; i++){
+    if(factors.indexOf(i*i*i)!=-1){cub.push(i);}
+  }
+  return [sq, cub];
+}
+console.log(factor(81));
+//-->[[3, 9], [3]]
+
