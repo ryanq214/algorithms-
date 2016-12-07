@@ -51,3 +51,20 @@ function factor(n) {
 console.log(factor(81));
 //-->[[3, 9], [3]]
 
+///shorter version of the above function 
+function factor(n) {
+  var factors=[], sq=[], cub=[];
+  for (var i=0; i<=n; i++){
+    for(var d=0; d<=n; d++){
+      if (i*d===n){ factors.unshift(d);}
+    }
+  }
+  factors.shift();
+  for (var i=0; i<=Math.sqrt(n); i++){
+ 		if(Math.sqrt(factors[i])%1===0){ sq.push(Math.sqrt(factors[i]))};
+    	if(factors.indexOf(i*i*i)!=-1){cub.push(i);}
+  }
+  return[sq, cub];
+}
+
+s
