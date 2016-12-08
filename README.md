@@ -67,4 +67,41 @@ function factor(n) {
   return[sq, cub];
 }
 
-s
+
+//The function should take one parameter: an object/dict with two or more name-value pairs which represent the members of the group and the amount spent by each.
+//The function should return an object/dict with the same names, showing how much money the members should pay or receive.
+//round decimals to the 2nd place
+function splitTheBill(x) {
+    var t= 0,a=0;
+    for( var i in x){
+      t=t+x[i];
+      a+=1;
+    }
+  t=t/a;
+  for(var i in x){
+    x[i]= (t-x[i])*-1;
+    if(x[i]===0){x[i]*-1}
+    x[i]=1*x[i].toFixed(2);
+  }
+	return x;
+}
+var a={
+    A: 40, B: 25, X: 10
+}
+console.log(splitTheBill(a));
+//-->{A: 5, B: 0, C: -5}
+
+//you are given two strings and you need to creat a function that adds these two strings
+//together, sorts them from a-z, and gets rid of any duplicates.
+function longest(s1, s2) {
+  var ar=(s1+s2).split("")
+  ar=ar.sort()
+    ar=ar.filter(function (c,i,a){ if(c!=a[i+1]){ return c;} })
+  return ar.join("");
+}
+var a = "xyaabbbccccdefww";
+var b = "xxxxyyyyabklmopq";
+console.log(longest(a,b));
+//-->"abcdefklmopqwxy"
+
+
