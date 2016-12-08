@@ -67,4 +67,29 @@ function factor(n) {
   return[sq, cub];
 }
 
-s
+
+//The function should take one parameter: an object/dict with two or more name-value pairs which represent the members of the group and the amount spent by each.
+//The function should return an object/dict with the same names, showing how much money the members should pay or receive.
+//round decimals to the 2nd place
+function splitTheBill(x) {
+    var t= 0,a=0;
+    for( var i in x){
+      t=t+x[i];
+      a+=1;
+    }
+  t=t/a;
+  for(var i in x){
+    x[i]= (t-x[i])*-1;
+    if(x[i]===0){x[i]*-1}
+    x[i]=1*x[i].toFixed(2);
+  }
+	return x;
+}
+var a={
+    A: 40, B: 25, X: 10
+}
+console.log(splitTheBill(a));
+//-->{A: 5, B: 0, C: -5}
+
+
+
