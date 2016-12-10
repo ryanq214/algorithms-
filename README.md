@@ -104,4 +104,26 @@ var b = "xxxxyyyyabklmopq";
 console.log(longest(a,b));
 //-->"abcdefklmopqwxy"
 
+//creat a function that takes a number and returns the number in the descending order.
+function descendingOrder(n){
+  var ar=n.toString().split("").sort(function(a,b){ return b-a;}).join("");
+  return ar*1;
+}
+console.log(descendingOrder(1254859723));
+//Input: 145263 Output: 654321
+//Input: 1254859723 Output: 9875543221
+
+//create a function that counts the number of vowels in a string and returns the number.
+function getCount(str) {
+  var c = 0, v=["a", "e", "i", "o", "u"];
+  str=str.toLowerCase().split("");
+  for(var i=0; i<str.length; i++){
+    for(var d=0; d<v.length; d++){
+      if(str[i]===v[d]){ c++;}
+    }
+  }
+  return c;
+}
+console.log(getCount("abracadabra"));
+//-->5
 
