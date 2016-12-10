@@ -126,4 +126,8 @@ function getCount(str) {
 }
 console.log(getCount("abracadabra"));
 //-->5
+//this is a better version using regular expressions.  
+function getCount(str) {
+  return str.match(/[aeiou]/gi).length;
+}
 
