@@ -131,3 +131,44 @@ function getCount(str) {
   return str.match(/[aeiou]/gi).length;
 }
 
+//you are given a start and end number and you should return the count of all numbers from the start to the end,
+// except numbers with a 5 in it. The start and the end number are both included in the count
+function dontGiveMeFive(x,y){
+ var arr=[], n=0;
+  for (var i=x; i<=y; i++){
+    n=i.toString().split("");
+  	if(n.indexOf("5")===-1){
+      arr.push(i);
+    }
+  }
+  return arr.length;
+}
+console.log(dontGiveMeFive(4,17));
+//dontGiveMeFive(1,9) -> [1,2,3,4,6,7,8,9] -> Result 8
+//dontGiveMeFive(4,17) -> [4,6,7,8,9,10,11,12,13,14,16,17] -> Result 12
+
+//Given an array of numbers, return an array, with each member of input array rounded to 
+//the nearest number, divisible by 5.return the list with all numbers rounded to nearest 0 or 5
+function roundToFive(num){
+  var x=0,y=0
+  for(var i=0; i<num.length; i++){
+    x=num[i].toString().split("");
+    if(x[x.length-1]>5){ x[x.length-1]-=5;}
+    if(x[x.length-1]>=2.5){
+      num[i]=Math.ceil(num[i]);
+      while(num[i]%5!=0){
+        num[i]+=1;
+      }
+    }
+    else {
+      num[i]=Math.floor(num[i]);
+      while(num[i]%5!=0){
+        num[i]-=1;
+      }
+  }
+  }
+  return num
+}
+console.log(roundToFive([2,46,8,71.3]));
+//-->[0, 45, 10, 75]
+
