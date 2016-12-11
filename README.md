@@ -131,3 +131,19 @@ function getCount(str) {
   return str.match(/[aeiou]/gi).length;
 }
 
+//you are given a start and end number and you should return the count of all numbers from the start to the end,
+// except numbers with a 5 in it. The start and the end number are both included in the count
+function dontGiveMeFive(x,y){
+ var arr=[], n=0;
+  for (var i=x; i<=y; i++){
+    n=i.toString().split("");
+  	if(n.indexOf("5")===-1){
+      arr.push(i);
+    }
+  }
+  return arr.length;
+}
+console.log(dontGiveMeFive(4,17));
+//dontGiveMeFive(1,9) -> [1,2,3,4,6,7,8,9] -> Result 8
+//dontGiveMeFive(4,17) -> [4,6,7,8,9,10,11,12,13,14,16,17] -> Result 12
+
