@@ -191,3 +191,23 @@ console.log(counterEffect("0050"));
 //input=("0050"),  answer= [[0],[0],[0,1,2,3,4,5],[0]]);
 //input=("0000"),  answer=[[0],[0],[0],[0]]);
 
+//Your task is to write an update for a lottery machine. 
+//Its current version produces a sequence of random letters and integers (passed as a 
+//string to the function lottery()). Your code inside lottery() must filter out all 
+//letters and return unique integers as a string. 
+//If there are no integers in the string return - “One more run!”.
+function lottery(str){
+  var ar=str.split(""), ans=""
+  for (var i=0; i<ar.length; i++){
+    if(isNaN(ar[i]) === false && ans.split("").indexOf(ar[i])===-1){ 
+      ans= ans + ar[i];}
+  }
+  if (ans.length===0){ return "One more run!";}
+  return ans 
+}
+
+console.log(lottery("wQ8Hy0y5m5oshQPeRCkG"))
+//-->"805"
+//input=("hPrBKWDH8yc6Lt5NQZWQ"), answer="865"
+// input="ynMAisVpHEqpqHBqTrwH", answer="One more run!"
+
