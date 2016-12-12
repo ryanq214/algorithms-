@@ -172,3 +172,22 @@ function roundToFive(num){
 console.log(roundToFive([2,46,8,71.3]));
 //-->[0, 45, 10, 75]
 
+//you have to create a function that will produce a multi-dimensional array out of the 
+//four digit number given. Each inner dimension of the array represents an individual 
+//digit from the given number, and will include all numbers that come before it, going back to 0.
+function counterEffect(hitCount) {
+ var arr=String(hitCount).split(""),na=[], ans=[];
+ for(var i=0; i<arr.length; i++){
+   	for(var d=0; d<=arr[i]; d++){
+     na.push(d);
+    }
+   ans.push(na);
+   na=[];
+ }
+  return ans;
+}
+console.log(counterEffect("0050"));
+//-->[[0,1],[0,1,2],[0,1,2,3,4,5],[0]]);
+//input=("0050"),  answer= [[0],[0],[0,1,2,3,4,5],[0]]);
+//input=("0000"),  answer=[[0],[0],[0],[0]]);
+
