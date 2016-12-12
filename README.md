@@ -211,3 +211,11 @@ console.log(lottery("wQ8Hy0y5m5oshQPeRCkG"))
 //input=("hPrBKWDH8yc6Lt5NQZWQ"), answer="865"
 // input="ynMAisVpHEqpqHBqTrwH", answer="One more run!"
 
+// this is a shorter version of the previous function using regular expression.
+function lottery(str){
+  var ar=str.replace(/[a-z]/gi, "");
+ 	ar=ar.split("").filter(function (c,i,a){ return a.indexOf(c)==i;}).join("");
+  if(ar.length===0){ return "One more run!";}
+  return ar
+}
+
