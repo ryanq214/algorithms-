@@ -235,3 +235,8 @@ console.log(arrCheck([{1:1},{2:2}]));
 //['1','2'] => false
 //[{1:1},{2:2}] => false
 
+// a better version of the funciton above using the Each() method for arrays (that i just learned)
+function arrCheck(x){
+  return x.every (Array.isArray);
+}
+
