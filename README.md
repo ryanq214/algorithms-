@@ -218,3 +218,20 @@ function lottery(str){
   return ar
 }
 
+//Is every value in the array an array?
+//This should only test the second array dimension of the array. The values of the 
+//nested arrays don't have to be arrays.
+function arrCheck(x){
+  var ans=true;
+  for (var i=0; i<x.length; i++){
+    if(Array.isArray(x[i]) != true){
+     return false;
+    }
+  }
+  return ans
+}
+console.log(arrCheck([{1:1},{2:2}]));
+//[[1],[2]] => true
+//['1','2'] => false
+//[{1:1},{2:2}] => false
+
