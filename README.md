@@ -240,3 +240,26 @@ function arrCheck(x){
   return x.every (Array.isArray);
 }
 
+//write a function that finds the ascii value of a given name where a=65 and A=97.  Any 
+//character that is not in the alphabet= 0.
+function getWeight(name){
+  var val={a:65, b:66, c:67, d:68, e:69, f:70, g:71, h:72, i:73, j:74, k:75, l:76, m:77, n:78,
+         o:79, p:80, q:81, r:82, s:83, t:84, u:85, v:86, w:87, x:88, y:89, z:90};
+	var s=name.replace(/\s/, "").trim().split(""), ans=0,x=0;
+  for(var i=0; i<s.length; i++){
+    x=s[i];
+    if(val[x]==undefined && val[x.toLowerCase()]==undefined){ continue;}
+    if (s[i].toLowerCase()!=s[i]){
+        ans+=32;
+    	x=s[i].toLowerCase();}
+   ans+=val[x];
+    }
+  return ans
+}
+console.log(getWeight("Joe"))
+//--> 254
+//console.log(getWeight("J45 oe*&")) -->254
+//console.log(getWeight("CJ"))// 205);
+//console.log(getWeight("cj"))// 141);
+// this one was a little tougher than the last few.  
+
