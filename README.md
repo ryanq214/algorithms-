@@ -299,3 +299,22 @@ var a = "abcd\nefgh\nijkl\nmnop"
 console.log(scale(a,2,3));
 //--> "aabbccdd\naabbccdd\naabbccdd\neeffgghh\neeffgghh\neeffgghh\niijjkkll\niijjkkll\niijjkkll\nmmnnoopp\nmmnnoopp\nmmnnoopp"
 
+//Your task is to write a function which returns the sum of following series upto the 
+// nth term(parameter). Series: 1 + 1/4 + 1/7 + 1/10 + 1/13 + 1/16 +...
+//You need to round the answer upto 2 decimal places and return it as String.
+//If the given value is 0 then it should return 0.00
+function SeriesSum(n){
+  if(n===0){ return "0.00";}
+  var arr=[1],x=0;
+  for (var i=1; i<n; i++){
+    arr.push( 1/(4+x));
+    x+=3;
+  }
+  arr=arr.reduce(function (tv, cv) { return tv+=cv;});
+  return arr.toFixed(2);
+}
+console.log(SeriesSum(1))//--> "1.00"
+console.log(SeriesSum(2))//--> "1.25"
+console.log(SeriesSum(3))//--> "1.39"
+console.log(SeriesSum(4))//--> "1.49"
+
