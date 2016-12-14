@@ -318,3 +318,12 @@ console.log(SeriesSum(2))//--> "1.25"
 console.log(SeriesSum(3))//--> "1.39"
 console.log(SeriesSum(4))//--> "1.49"
 
+//this is a shorter version of the above function.  I don't know why i put it into an array first. 
+function SeriesSum(n){
+  var x=0;
+  for (var i=0; i<n; i++){
+   x=x+1/(1+i*3);
+  }
+ return x.toFixed(2);
+}
+
