@@ -263,3 +263,58 @@ console.log(getWeight("Joe"))
 //console.log(getWeight("cj"))// 141);
 // this one was a little tougher than the last few.  
 
+// write a funciton that is given a string and a horizontal value(k) and a vertical value(v).
+// the horizonatal value is number of times you should repeat each character, except for "\n".
+// Ex: if k=2 and the string is "abc".  the result should be "aabbcc".
+//the vertical value is the number of times you should repeat each section of letter between the "\n"
+// Ex: if v=2 and the string given is "abc\ndef\nji".  you answer should be 
+//"abc\nabc\ndef\ndef\nji\nji".
+// so if you are given a string "abc\nde", k=2, v=2.  then your answer should be this
+//"aabbcc\naabbcc\nddee\nddee"
+function scale(string, k, v) {
+ if(string.length===0) { return string;}
+  a= string.split(""),arr=[],ar=[],y="",x="";
+  for (var i=0; i<a.length; i++){
+    for (var d=0; d<k; d++){
+      if(y!="\n"){
+      y+=a[i];
+    }; }
+    ar.push(y);
+    y="";
+  }
+	ar=ar.join("").split("\n");  
+  for (var i=0; i<ar.length; i++){
+    for(var d=0; d<v; d++){
+    	x= x+ar[i]+"\n";
+    }
+    arr.push(x);
+    x="";
+  }
+ arr=arr.join("").split("");
+  arr.pop();
+  arr=arr.join("");
+  return arr
+}
+var a = "abcd\nefgh\nijkl\nmnop"
+console.log(scale(a,2,3));
+//--> "aabbccdd\naabbccdd\naabbccdd\neeffgghh\neeffgghh\neeffgghh\niijjkkll\niijjkkll\niijjkkll\nmmnnoopp\nmmnnoopp\nmmnnoopp"
+
+//Your task is to write a function which returns the sum of following series upto the 
+// nth term(parameter). Series: 1 + 1/4 + 1/7 + 1/10 + 1/13 + 1/16 +...
+//You need to round the answer upto 2 decimal places and return it as String.
+//If the given value is 0 then it should return 0.00
+function SeriesSum(n){
+  if(n===0){ return "0.00";}
+  var arr=[1],x=0;
+  for (var i=1; i<n; i++){
+    arr.push( 1/(4+x));
+    x+=3;
+  }
+  arr=arr.reduce(function (tv, cv) { return tv+=cv;});
+  return arr.toFixed(2);
+}
+console.log(SeriesSum(1))//--> "1.00"
+console.log(SeriesSum(2))//--> "1.25"
+console.log(SeriesSum(3))//--> "1.39"
+console.log(SeriesSum(4))//--> "1.49"
+
