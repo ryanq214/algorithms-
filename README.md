@@ -327,3 +327,13 @@ function SeriesSum(n){
  return x.toFixed(2);
 }
 
+//Given a number, return the maximum value by rearraning it's digits.
+function rotateToMax(n){
+  n=n.toString().split("").sort(function (a,b){ return b-a;}).join("");
+  return n*1;
+}
+console.log(rotateToMax("001"))
+//-->321
+//(786) --> 876
+//("001") --> 100
+
