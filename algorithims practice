@@ -362,3 +362,59 @@ function compose(s1, s2) {
 }
 console.log(compose ("abcd\nefgh\nijkl\nmnop", "qrst\nuvwx\nyz12\n3456"));
 // -> "a3456\nefyz1\nijkuv\nmnopq"
+
+// write three functions.  the first function (vert mirrors) is given a string and returns it with each set of character between the "\n" character is reversed but set in the same order and resturns this as a string.
+//the second function (hor mirrors) is also given a string and returns it by reversing the order of the sets bewteen the "\n" but leaves the sets themselves in the same order and returns that as a string.
+//The third function (oper) takes two parameters, a fuction (either vert mirror or hor mirror) and a string.  It then returns the string through that function and returns the answer.
+function vertMirror(str) {
+  //first i split the string into section between the "\n" character
+  str=str.split("\n");
+  //this loop goes through each section splitting them into arrays themselves so i can reverse them and return back into the original array as reversed strings.
+  for (var i=0; i<str.length; i++){
+    str[i]=str[i].split("").reverse().join("");}
+  //then i join the array back together with the "\n" between the sections.
+  return str.join("\n");
+}
+function horMirror(str) {
+  //I first split the string into sets again but this time i reverse the array as a whole without reversing the sets themselves.  then i join it back into a string.
+    str=str.split("\n").reverse().join("\n");
+  return str;
+}
+function oper(fct, s) {
+    return fct(s);
+}
+s = "abcd\nefgh\nijkl\nmnop"
+console.log(vertMirror(s))// => "dcba\nhgfe\nlkji\nponm"
+console.log(horMirror(s));// => "mnop\nijkl\nefgh\nabcd"
+console.log(oper(vertMirror, s));// => "dcba\nhgfe\nlkji\nponm"
+console.log(oper(horMirror, s))// => "mnop\nijkl\nefgh\nabcd"
+
+//Create a function that will take three parameters(fmt, nbr and start) and create an array of nbr elements formatted according to the frm with the starting index of start.
+//fmt will have <index_no> inserted at various locations; this is where the file index number goes in each file.
+//If nbr is less than or equal to 0, or not whole, return an empty array.
+//If fmt does not contain '<index_no>', just return an array with nbr elements that are all equal to fmt.
+//If start is not an integer, return an empty array.
+function nameFile (fmt, nbr, start){
+  if(nbr<=0|| nbr%1!=0){ return [];}
+  if (start%1!=0){ return [];}
+  var ar=[];
+  //pretty simple i make a for loop that replaces the <index_no> in fmt with the current start value and pushes it into the new array
+  for (var i=0; i<nbr; i++){
+    // here i meet the condition if there is no <index_no> in the fmt
+    if (fmt.indexOf("<index_no>")===-1){ ar.push(fmt);}
+    else {ar.push(fmt.replace(/<index_no>/gi, start)) }
+    //at the end fo the for loop i increase the start value by 1
+    start ++;
+  }
+	return ar;
+}
+console.log(nameFile("IMG <index_no>", 4, 1));//-->["IMG 1", "IMG 2", "IMG 3", "IMG 4"])
+console.log(nameFile("image #<index_no>.jpg", 3, 7))
+//-->["image #7.jpg", "image #8.jpg", "image #9.jpg"]
+console.log(nameFile("#<index_no> #<index_no>", 3, -2));
+//-->["#-2 #-2", "#-1 #-1", "#0 #0"]
+
+// here is a better version of the above function using the map method for an array.  I should have rememberd the map.
+function nameFile(fmt, nbr, start) {
+  return nbr <= 0 || start % 1 !== 0 || nbr % 1 !== 0 ? [] : str.split(" ").map(function(_, i){ return fmt.replace(/\<index\_no\>/g, start + i) });
+}
