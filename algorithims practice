@@ -430,3 +430,46 @@ function factorial(n) {
 };
 console.log(factorial(3))//,(3*2*1)--> 6);
 console.log(factorial(5))//-->120
+
+//On Unix system type files can be identified with the ls -l command which displays the type of the file in the first alphabetic letter of the file system permissions field.
+//hese are the types
+//'-' A regular file ==> file.
+//'d' A directory ==> directory.
+//'l' A symbolic link ==> symlink.
+//'c' A character special file. It refers to a device that handles data as a stream of bytes (e.g: a terminal/modem) ==> character_file.
+//'b' A block special file. It refers to a device that handles data in blocks (e.g: such as a hard drive or CD-ROM drive) ==> block_file.
+//'p' a named pipe ==> pipe.
+//'s' a socket ==> socket.
+//'D' a door ==> door.
+//make a function that return the filetype as a string regarding the file_attribute given by the ls -l command.
+function linuxType(file) {
+	var list={ "-":"file", "d": "directory", "l": "symlink", "c":"character_file", "b":"block_file",
+              "p": "pipe", "s": "socket", "D": "door"}
+    return list[file[0]];
+}
+
+console.log(linuxType("-rwxrwxrwx"))//,"file")
+console.log(linuxType("Drwxr-xr-x"))//,"door")
+console.log(linuxType("lrwxrw-rw-"))//,"symlink")
+console.log(linuxType("srwxrwxrwx"))//,"socket")
+
+// a different version of the function above useing a switch statement
+function linuxType(file) {
+  switch(file[0]){
+    case "-": return "file";
+      break;
+    case "d": return "directory";
+      break;
+    case "l": return "symlink";
+      break;
+    case "c": return "character_file";
+      break;
+    case "b": return "block_file";
+      break;
+    case "p": return "pipe";
+      break;
+    case "s": return "socket";
+      break;
+    case "D": return "door";
+  		break;}
+}
