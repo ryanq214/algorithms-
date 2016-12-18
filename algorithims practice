@@ -418,3 +418,15 @@ console.log(nameFile("#<index_no> #<index_no>", 3, -2));
 function nameFile(fmt, nbr, start) {
   return nbr <= 0 || start % 1 !== 0 || nbr % 1 !== 0 ? [] : str.split(" ").map(function(_, i){ return fmt.replace(/\<index\_no\>/g, start + i) });
 }
+
+//In mathematics, the factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n.
+//For example, 5! = 5 * 4 * 3 * 2 * 1 = 120.
+//You have to create the function factorial that receives n and returns n!. You have to use recursion.
+function factorial(n) {
+  //first i check to make sure that n isn't 0 if it is i return 1.
+  if(n===0){ return 1;}
+  //then i make the recursion part multiply n by itself minues 1 each time.  i multiply n by putting it by subtracting it by 1 and putting it back into the same function.
+  return n * factorial(n-1);
+};
+console.log(factorial(3))//,(3*2*1)--> 6);
+console.log(factorial(5))//-->120
