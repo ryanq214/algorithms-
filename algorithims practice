@@ -418,3 +418,58 @@ console.log(nameFile("#<index_no> #<index_no>", 3, -2));
 function nameFile(fmt, nbr, start) {
   return nbr <= 0 || start % 1 !== 0 || nbr % 1 !== 0 ? [] : str.split(" ").map(function(_, i){ return fmt.replace(/\<index\_no\>/g, start + i) });
 }
+
+//In mathematics, the factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n.
+//For example, 5! = 5 * 4 * 3 * 2 * 1 = 120.
+//You have to create the function factorial that receives n and returns n!. You have to use recursion.
+function factorial(n) {
+  //first i check to make sure that n isn't 0 if it is i return 1.
+  if(n===0){ return 1;}
+  //then i make the recursion part multiply n by itself minues 1 each time.  i multiply n by putting it by subtracting it by 1 and putting it back into the same function.
+  return n * factorial(n-1);
+};
+console.log(factorial(3))//,(3*2*1)--> 6);
+console.log(factorial(5))//-->120
+
+//On Unix system type files can be identified with the ls -l command which displays the type of the file in the first alphabetic letter of the file system permissions field.
+//hese are the types
+//'-' A regular file ==> file.
+//'d' A directory ==> directory.
+//'l' A symbolic link ==> symlink.
+//'c' A character special file. It refers to a device that handles data as a stream of bytes (e.g: a terminal/modem) ==> character_file.
+//'b' A block special file. It refers to a device that handles data in blocks (e.g: such as a hard drive or CD-ROM drive) ==> block_file.
+//'p' a named pipe ==> pipe.
+//'s' a socket ==> socket.
+//'D' a door ==> door.
+//make a function that return the filetype as a string regarding the file_attribute given by the ls -l command.
+function linuxType(file) {
+	var list={ "-":"file", "d": "directory", "l": "symlink", "c":"character_file", "b":"block_file",
+              "p": "pipe", "s": "socket", "D": "door"}
+    return list[file[0]];
+}
+
+console.log(linuxType("-rwxrwxrwx"))//,"file")
+console.log(linuxType("Drwxr-xr-x"))//,"door")
+console.log(linuxType("lrwxrw-rw-"))//,"symlink")
+console.log(linuxType("srwxrwxrwx"))//,"socket")
+
+// a different version of the function above useing a switch statement
+function linuxType(file) {
+  switch(file[0]){
+    case "-": return "file";
+      break;
+    case "d": return "directory";
+      break;
+    case "l": return "symlink";
+      break;
+    case "c": return "character_file";
+      break;
+    case "b": return "block_file";
+      break;
+    case "p": return "pipe";
+      break;
+    case "s": return "socket";
+      break;
+    case "D": return "door";
+  		break;}
+}
