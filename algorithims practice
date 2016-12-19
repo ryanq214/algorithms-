@@ -517,3 +517,17 @@ console.log(findAdmin (list1, "JavaScript"));
     var x= list.reduce(function (t,c){  return t=t+ c["age"]; },0);
     return Math.round(x/list.length);
   }
+
+  //write a function which takes a sorted array (ary) and a value (val), and returns the lowest index where you could insert val to maintain the sorted-ness of the array. The input array will always be sorted in ascending order. It may contain duplicates.
+  function keepOrder(ary, val) {
+    // here i check if there are any values in the array, if there isn't i return 0
+    if( ary.length===0) { return 0;}
+    // in this loop i check through every element in the array until i find one that is greater than or equal to the value given to the function.  if i find one that fits i return that index number, if there aren't any then i return the given array length, which is where i would put the value given.
+    for (var i=0; i<ary.length; i++){
+      if (ary[i]>=val){ return i; break;}
+      if (ary[ary.length-1]<val){ return ary.length;}
+    }
+  }
+  console.log(keepOrder([1, 2, 3, 4, 7], 5))// #=> 4
+  console.log(keepOrder([1, 2, 3, 4, 7], 0))// #=> 0
+  console.log(keepOrder([1, 1, 2, 2, 2], 2))//#=> 2
