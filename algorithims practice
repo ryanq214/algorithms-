@@ -579,3 +579,11 @@ console.log(greetDevelopers(list1));
     greeting: 'Hi Madison, what do you like the most about Ruby?'
   }
 ];*/
+
+//here is the first one i finished first befor i could get the map method to work
+function greetDevelopers(list) {
+  for (var i=0; i<list.length; i++){
+    list[i].greeting = `Hi ${list[i].firstName}, what do you like most about ${list[i].language}?`;
+  }
+  	return list;
+}
