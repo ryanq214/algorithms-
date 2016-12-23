@@ -606,3 +606,19 @@ var list1 = [
   { firstName: 'George', lastName: 'B.', country: 'England', continent: 'Europe', age: 81, language: 'C' },
 ];
 console.log(countLanguages(list1));  //-->{ C: 2, JavaScript: 1, Ruby: 1 }
+
+//Chingel is practicing for a rowing competition to be held on this saturday. He is trying his best to win this tournament for which he needs to figure out how much time it takes to cover a certain distance.
+//You will be provided with the total distance of the journey, speed of the boat and whether he is going downstream or upstream. The speed of the stream and direction of rowing will be given as a string. Check example test cases!
+//your function should return the time taken to cover the distance. If the result has decimal places, round them to 2 fixed positions.
+// it is not stated which way chingel is going (downstream, or upstream).  but based on the examples i am going to assume downstream.
+function time(distance,boatSpeed,stream){
+  //first i split the stream string into an array with two elements (the direction and speed).  then i check if it is down stream or up, if its down i add the speed to the boad speed, if its up i subtract it.
+	stream=stream.split(" ");
+  if (stream[0]=== "Downstream"){ boatSpeed += stream[1]*1;}
+  else { boatSpeed -= stream[1]*1};
+  // then i do a simple division to find the time and fix it to the second decimal point multiplying the asnwer by 1 to make sure it's returned as a number
+  return (distance/boatSpeed).toFixed(2)*1;
+}
+console.log(time(24,10,"Downstream 2"))//-->,2);
+console.log(time(24,14,"Upstream 2"))//-->,2);
+console.log(time(54,28,"Downstream 3"))//-->,1.74);
