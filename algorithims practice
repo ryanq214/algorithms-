@@ -654,3 +654,27 @@ function swp(str){
       	return c.toLowerCase() ===c? c.toUpperCase(): c.toLowerCase(); } ).join("");
 }
 console.log(swap("CodeEwArs"));
+
+//write function (accum) that does the following:
+//accum("abcd");    // "A-Bb-Ccc-Dddd"
+//accum("RqaEzty"); // "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+//accum("cwAt");    // "C-Ww-Aaa-Tttt"
+function accum(s) {
+  //first i make a blank string variable (str) and split s into an array
+	var str=""; s=s.split("");
+  // now i start a for loop that will go through each charater in the s array make them uppercase and add it to str.
+  for (var i=0; i<s.length; i++){
+    str+= s[i].toUpperCase();
+    // this inner for loop continues on the outer for loop by adding the same character (in lowercase) to it as long as d is less than i.
+    for (var d= 0; d<i;d++){
+      str+=s[i].toLowerCase();
+    }
+    // and finally i add the "-" part to the str between each set of letters.
+    str+= "-";
+  }
+  // these two lines are to get rid of the "-" at the end of the string that the for loop adds.
+  str=str.split(""); str.pop()
+   str=str.join("");
+  return str
+}
+console.log(accum("abcd"))//;    // "A-Bb-Ccc-Dddd"
