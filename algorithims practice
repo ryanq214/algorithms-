@@ -644,3 +644,37 @@ function rowSumOddNumbers(n) {
 console.log(rowSumOddNumbers(1)); //--> 1
 console.log(rowSumOddNumbers(2)); //--> 3 + 5 = 8
 console.log(rowSumOddNumbers(42))//--> 74088);
+
+//Given a string, swap the case for each of the letters.
+//CodEwArs --> cODeWaRS
+function swp(str){
+  //this is a pretty simple one.  first i split the string into an array with each letter being an indivdual element.
+	return str.split("").map( function(c) {
+      //now i use the map method to run each element of the array through this fucntion that checks if the letter is already lower case and if it is it changes that letter to uppercase, if it's not i changes to lower case.
+      	return c.toLowerCase() ===c? c.toUpperCase(): c.toLowerCase(); } ).join("");
+}
+console.log(swap("CodeEwArs"));
+
+//write function (accum) that does the following:
+//accum("abcd");    // "A-Bb-Ccc-Dddd"
+//accum("RqaEzty"); // "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+//accum("cwAt");    // "C-Ww-Aaa-Tttt"
+function accum(s) {
+  //first i make a blank string variable (str) and split s into an array
+	var str=""; s=s.split("");
+  // now i start a for loop that will go through each charater in the s array make them uppercase and add it to str.
+  for (var i=0; i<s.length; i++){
+    str+= s[i].toUpperCase();
+    // this inner for loop continues on the outer for loop by adding the same character (in lowercase) to it as long as d is less than i.
+    for (var d= 0; d<i;d++){
+      str+=s[i].toLowerCase();
+    }
+    // and finally i add the "-" part to the str between each set of letters.
+    str+= "-";
+  }
+  // these two lines are to get rid of the "-" at the end of the string that the for loop adds.
+  str=str.split(""); str.pop()
+   str=str.join("");
+  return str
+}
+console.log(accum("abcd"))//;    // "A-Bb-Ccc-Dddd"
