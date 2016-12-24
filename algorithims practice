@@ -644,3 +644,13 @@ function rowSumOddNumbers(n) {
 console.log(rowSumOddNumbers(1)); //--> 1
 console.log(rowSumOddNumbers(2)); //--> 3 + 5 = 8
 console.log(rowSumOddNumbers(42))//--> 74088);
+
+//Given a string, swap the case for each of the letters.
+//CodEwArs --> cODeWaRS
+function swp(str){
+  //this is a pretty simple one.  first i split the string into an array with each letter being an indivdual element.
+	return str.split("").map( function(c) {
+      //now i use the map method to run each element of the array through this fucntion that checks if the letter is already lower case and if it is it changes that letter to uppercase, if it's not i changes to lower case.
+      	return c.toLowerCase() ===c? c.toUpperCase(): c.toLowerCase(); } ).join("");
+}
+console.log(swap("CodeEwArs"));
