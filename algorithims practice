@@ -678,3 +678,53 @@ function accum(s) {
   return str
 }
 console.log(accum("abcd"))//;    // "A-Bb-Ccc-Dddd"
+
+//The christmas song sheets have been dropped in the snow and the lines of each verse have become all jumbled up.
+//You have to write a comparator function which can sort the lines back into their correct order, otherwise Christmas will be cancelled!
+//Reminder: Below is what the final verse should look like
+/*On the 12th day of Christmas my true love gave to me
+12 drummers drumming,
+11 pipers piping,
+10 lords a leaping,
+9 ladies dancing,
+8 maids a milking,
+7 swans a swimming,
+6 geese a laying,
+5 golden rings,
+4 calling birds,
+3 French hens,
+2 turtle doves and
+a partridge in a pear tree.*/
+var comparator = function(a) {
+  var str=a.split("On the "), num=str[1].split("t"), arr=[],
+      song=["a partridge in a pear tree.", "2 turtle doves and", "3 French hens", "4 calling birds", "5 golden rings", "6 geese a laying", "7 swans a swimming", "8 maids a milking", "9 ladies dancing", "10 lords a leaping", "11 pipers piping", "12 drummers drumming"],
+      day={ 1:"1st", 2:"2nd", 3:"3rd", 4:"4th", 5:"5th", 6:"6th", 7:"7th", 8:"8th", 9:"9th", 10:"10th", 11:"11th", 12:"12th"};
+  for (var i=num[0]; i>0; i--){
+    arr.push (song[i-1]);
+  };
+  arr=arr.join("\n");
+
+  return  `On the ${day[(num[0] *1)]} day of christmas my true love gave to me`  + "\n" + arr
+}
+var str= "5 golden rings, 4 calling birds, 3 French hens, 2 turtle doves and, On the 5th day of Christmas my true love gave to me 12 drummers drumming,  a partridge in a pear tree."
+console.log (comparator (str, 8));
+/*--> On the 5th day of christmas my true love gave to me
+5 golden rings
+4 calling birds
+3 French hens
+2 turtle doves and
+a partridge in a pear tree.*/
+
+//The mean (or average) is the most popular measure of central tendency; however it does not behave very well when the data is skewed (i.e. wages distribution). In such cases, it's better to use the median.
+//Your task for this kata is to find the median of an array consisting of n elements.
+function median(n){
+  if (n.length===0) { return false;}
+  n=n.sort( function(a,b) { return a-b;} );
+  if (n.length %2===0){
+      return (n[n.length/2]-n[n.length/2 -1])/2 + n[n.length/2 -1];
+  }
+  else { return n[Math.round(n.length/2)-1];}
+  return n;
+}
+console.log(median( [1, 2, 3, 4]))// --> Median 2.5
+console.log(median([3, 4, 1, 2, 5]))// --> Median 3
