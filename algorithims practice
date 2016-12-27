@@ -728,3 +728,43 @@ function median(n){
 }
 console.log(median( [1, 2, 3, 4]))// --> Median 2.5
 console.log(median([3, 4, 1, 2, 5]))// --> Median 3
+
+//write a function that is given an array of objects and returns the number of "JavaScript" developers coming from Europe.
+function countDevelopers(list) {
+  var t=0;
+  list.map( function (c,i,a) { if (c.continent === "Europe" && c.language === "JavaScript") { return t++;}});
+  return t;
+}
+var list1 = [
+  { firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'JavaScript' },
+  { firstName: 'Maia', lastName: 'S.', country: 'Tahiti', continent: 'Oceania', age: 28, language: 'JavaScript' },
+  { firstName: 'Shufen', lastName: 'L.', country: 'Taiwan', continent: 'Asia', age: 35, language: 'HTML' },
+  { firstName: 'Sumayah', lastName: 'M.', country: 'Tajikistan', continent: 'Asia', age: 30, language: 'CSS' }
+];
+console.log(countDevelopers( list1));
+//--> 1.
+
+//Given an array of strings representing a list of usernames, return true only if all usernames comply with your company's guidelines. Return false otherwise.
+//The guidelines say that the username is valid only if:
+//    	it is between 6-10 characters long;
+//    contains at least 1 lowercase letter;
+//    contains at least 1 number;
+//    contains only numbers and lowercase letters.
+function authList(arr) {
+  var an=["0","1","2","3","4","5","6","7","8","9","a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k","l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v","w", "x", "y", "z"];
+  for (var i=0; i<arr.length; i++){
+    for (var d=0; d<arr[i].length; d++){
+      if (an.indexOf(arr[i][d])===-1) { return false;}
+          }
+  if (arr[i].match("[a-z]")=== null){ return false;}
+  else if (arr[i].match("[0-9]")=== null){ return false;}
+  else if (6>arr[i].length || arr[i].length>10){ return false;}
+  }
+    return true;
+}
+console.log(authList(['john123', 'alex222', 'sandra1']));
+// returns true
+console.log(authList(['john123', 'alex222', 'sandraW']));
+// returns false because sandraW has no number
+console.log(authList( ['john_123', 'alex222', 'sandra1']))
+// returns false because john_123 contains an invalid character
