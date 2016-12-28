@@ -815,3 +815,32 @@ function nb_year(p0, percent, aug, p) {
 }
 console.log(nb_year(1500, 5, 100, 5000))// -> 15
 console.log(nb_year(1500000, 2.5, 10000, 2000000))// -> 10
+
+//You will be given a number and you will need to return it as a string in Expanded Form. For example:
+console.log(expandedForm(12)); // Should return '10 + 2'
+console.log(expandedForm(42)); // Should return '40 + 2'
+console.log(expandedForm(70304)); // Should return '70000 + 300 + 4'
+function expandedForm(num) {
+  // first i make a blank string var (s) and i turn num into a string an split it into an array.
+  var s=""; num= num.toString().split("");
+  //this for loop is going to go through each element of the num array and if the number isn't 0 then i'm going to add it to the s string and push it into the inner for loop.
+  for (var i=0; i<num.length; i++){
+    if (num[i]>0){
+      s+=num[i]
+      // this inner for loop adds 0's to the s string by the number of spaces in the array after the elment that is greater than 0.
+      // for example witht the num 70304, the outer for loop would add 7 to s and this for loop would add 4 0's to that 7 making it 7000.
+      for (var d=i+1; d<num.length; d++){
+      s += 0;
+      }
+    };
+  }
+  //now i split the s string into an array so i can work on adding in the plus signs
+  s=s.split("");
+  // this for loop runs through each elemnet and checks if it is a 0, and this element is not the last in the array, and the next element is not a 0
+  // if the element meets this criteria then it will change the "0" to "0 + " and put it back into the array.
+  for (var i=0; i<s.length; i++){
+    if (s[i]==="0" && s[i+1] !="0" && i!= (s.length-1)){ s[i] = "0 + "}
+  }
+  // now i join it back into a string.
+    return s.join("");
+}
