@@ -768,3 +768,27 @@ console.log(authList(['john123', 'alex222', 'sandraW']));
 // returns false because sandraW has no number
 console.log(authList( ['john_123', 'alex222', 'sandra1']))
 // returns false because john_123 contains an invalid character
+
+//Create a function that takes two arguments:
+//1) An array of objects which feature the season, the team and the country of the Champions League winner.\
+//2) Country (as a string, for example, 'Portugal')
+//You function should then return the number which represents the number of times a team from a given country has won. Return 0 if there have been no wins.
+function countWins(winnerList, country) {
+  var t=0;
+  winnerList.map( function (c,i,a) { if (c.country=== country) { return t++;} } );
+  return t
+}
+const winnerList1 = [
+  { season: '1996–97', team: 'Borussia Dortmund', country: 'Germany' },
+  { season: '1997–98', team: 'Real Madrid', country: 'Spain' },
+  { season: '1998–99', team: 'Manchester United', country: 'England' },
+  { season: '2002–03', team: 'Milan', country: 'Italy' },
+  { season: '2003–04', team: 'Porto', country: 'Portugal' },
+  { season: '2005–06', team: 'Barcelona', country: 'Spain' },
+  { season: '2006–07', team: 'Milan', country: 'Italy' },
+  { season: '2011–12', team: 'Chelsea', country: 'England' },
+  { season: '2012–13', team: 'Bayern', country: 'Germany' },
+];
+console.log(countWins(winnerList1, 'Portugal'))//, 1);
+console.log(countWins(winnerList1, 'FootLand'))//, 0);
+console.log(countWins(winnerList1, 'Spain'))//, 2
