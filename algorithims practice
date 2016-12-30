@@ -863,3 +863,38 @@ function findUniq (arr) {
   arr.sort();
   return arr[0]===arr[1]? arr.pop(): arr[0];
 }
+
+//Your task is to reduce a list of numbers to one number.For this you get a list of rules, how you have to reduce the numbers.
+//You have to use these rules consecutively. So when you get to the end of the list of rules, you start again at the beginning.
+//EX:
+/*numbers: [ 2.0, 2.0, 3.0, 4.0 ]
+rules: [ (a,b) => a + b, (a,b) => a - b ]
+result: 5.0
+
+You get a list of four numbers.
+There are two rules. First rule says: Sum the two numbers a and b. Second rule says: Subtract b from a.
+The steps in progressing:
+1. Rule 1: First number + second number -> 2.0 + 2.0 = 4.0
+2. Rule 2: result from step before - third number -> 4.0 - 3.0 = 1.0
+3. Rule 1: result from step before + forth number -> 1.0 + 4.0 = 5.0
+*/
+function reduceByRules(num, rules){
+  // here i create three variables. x i will use to equal the result of putting two numbers from the num array into one of the rules.  y and r i am using to change which rule i am using from the rule array.
+  var x=0, y=0, r=rules.length-1;
+  //i am using a while loop instead of a for loop which i usually use because i will be taking out element from the num array and i'm not sure how it will affect how the loop runs.
+  while (num.length>1){
+    // here i apply the rule from the rule array using the apply method and set x equal to the result. whenever i do this it automatically applies the first two number from the num array.
+    x=rules[y].apply(null,num);
+    // these two lines i get rid of the first element in the num array and set the now 0 elemtent equal to x.
+    // so after i  run this while loop on the num array [2,2,3,4] x will be 4 (2+2). so i get rid of the first two ([2,3,4]) and set the now 0 equal to x ([4,3,4])
+    num.shift();
+    num[0]=x;
+    // with these two lines i change which rule i am using from the rules array using y and r.  r is set the the length of the rules array minus 1 (1 in the case of the example).  y is set as 0 originally
+    //so the first time i run the loop it will use the first rule (rules[0]).  after that i increment y by 1.  whenever i am finishing the loop i check to make sure y is still smaller than r (because if it is bigger then it will get an undefined value) if it isn't i set it back to 0
+    // this should keep the while loop working even if the num array has 20 elements and rules still only has 2
+    if (y<r){ y++}
+    else {y=0;}
+  	}
+  return x
+}
+console.log(reduceByRules([2,2,3,4], [ (a,b) => a + b, (a,b) => a - b ]));//--> 5
