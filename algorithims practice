@@ -898,3 +898,52 @@ function reduceByRules(num, rules){
   return x
 }
 console.log(reduceByRules([2,2,3,4], [ (a,b) => a + b, (a,b) => a - b ]));//--> 5
+
+//Selection Grid Layout in text: for this challenge it will always be this
+// | Ryu  | E.Honda | Blanka  | Guile   | Balrog | Vega    |
+// | Ken  | Chun Li | Zangief | Dhalsim | Sagat  | M.Bison |
+/*Input
+    the list of game characters in a 2x6 grid;
+    the initial position of the selection cursor (top-left is (0,0));
+    a list of moves of the selection cursor (which are up, down, left, right);
+Output
+    the list of characters who have been hovered by the selection cursor after all the moves (ordered and with repetition, all the ones after a move, wether successful or not, see tests);
+*/
+/*Rules
+Selection cursor is circular horizontally but not vertically!
+As you might remember from the game, the selection cursor rotates horizontally but not vertically; that means that if I'm in the leftmost and I try to go left again I'll get to the rightmost (examples: from Ryu to Vega, from Ken to M.Bison) and vice versa from rightmost to leftmost.
+Instead, if I try to go further up from the upmost or further down from the downmost, I'll just stay where I am located (examples: you can't go lower than lowest row: Ken, Chun Li, Zangief, Dhalsim, Sagat and M.Bison in the above image; you can't go upper than highest row: Ryu, E.Honda, Blanka, Guile, Balrog and Vega in the above image).
+*/
+function streetFighterSelection(fighters, position, m){
+  // first i make these three variables. arr is what i will put in the fighter selected from each m (move).
+  //x and y will be the position in the fighters array. X will be wich of the two big arrays in fighters (which row of fighters) and Y will be witch fighter in that row ( the element inside that x array)
+  var x=0,y=0,arr=[];
+  // i make this for loop to check what move is being made (up, down...) and adjust the x and y variables accordingly
+  	for (var i=0; i<m.length; i++){
+      // if the move is up or down then i change the x var which will change which of the two arrays is being selected in the fighters array.
+      // but as the selecter can't go up past the top row or down past the bottom row if this happense then i leave the x value as it is.
+      if (m[i]=== "up" &&(x===1)){ x--};
+      if (m[i]=== "down" && (x===0)) { x++ };
+      // if the move is right or left i change the y variable which will change what fighter in that row is being selected.
+      // but just like the x variable there is a twist. if the y value is all the way to the right and moves right it goes back to the begining of that row, same with the left it will go to the end of the row.
+      if (m[i]=== "right"){
+        if (y=== fighters[x].length-1){ y=0 }
+        else { y++ }; 	}
+      if (m[i]==="left"){
+        if (y===0){ y=fighters[x].length -1}
+        else { y--};	}
+      // at the end of each iteration of the loop i push the result of the new position in fighters into the arr array.
+      arr.push (fighters[x][y]);
+    }
+  return arr;
+}
+console.log( streetFighterSelection([
+    ["Ryu", "E.Honda", "Blanka", "Guile", "Balrog", "Vega"],
+    ["Ken", "Chun Li", "Zangief", "Dhalsim", "Sagat", "M.Bison"]],
+    (0,0), ['up', 'left', 'right', 'left', 'left']) );
+//-->['Ryu', 'Vega', 'Ryu', 'Vega', 'Balrog']
+console.log( streetFighterSelection([
+    ["Ryu", "E.Honda", "Blanka", "Guile", "Balrog", "Vega"],
+    ["Ken", "Chun Li", "Zangief", "Dhalsim", "Sagat", "M.Bison"] ],
+  	(0,0),['right', 'down', 'left', 'left', 'left', 'left', 'right'] ) );
+//-->['E.Honda', 'Chun Li', 'Ken', 'M.Bison', 'Sagat', 'Dhalsim', 'Sagat']
