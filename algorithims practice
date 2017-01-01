@@ -947,3 +947,55 @@ console.log( streetFighterSelection([
     ["Ken", "Chun Li", "Zangief", "Dhalsim", "Sagat", "M.Bison"] ],
   	(0,0),['right', 'down', 'left', 'left', 'left', 'left', 'right'] ) );
 //-->['E.Honda', 'Chun Li', 'Ken', 'M.Bison', 'Sagat', 'Dhalsim', 'Sagat']
+
+//write a function that will replace any color property values that are too yellow with shades of green or blue-green.
+//Your function will receive either an HTML color name or a six-digit hex color code. (You're not going to bother with other types of color codes just now because you don't think they will come up.) If the color is too yellow, your function needs to return a green or blue-green shade instead, but if it is not too yellow, it needs to return the original color name or hex color code unchanged.
+//For HMTL color names, you are going to start out trying a pretty strict definition of yellow, replacing any of the following colors as specified:
+
+//HTML color names are case-insensitive, so your function will need to be able to identify the above yellow shades regardless of the cases used, but should output the green shades as capitalized above.
+/*Gold => ForestGreen
+Khaki => LimeGreen
+LemonChiffon => PaleGreen
+LightGoldenRodYellow => SpringGreen
+LightYellow => MintCream
+PaleGoldenRod => LightGreen
+Yellow => Lime	*/
+
+//With six-digit color hex codes, you are going to start out going really overboard, interpreting as "yellow" any hex code where the red (R) and green (G) values are each greater than the blue (B) value.
+//When you find one of these "yellow" hex codes, your function will take the three hex values and rearrange them that the largest goes to G, the middle goes to B, and the smallest to R.
+//For example, with the six-digit hex color code #FF D7 00, which has an R value of FF, a G value of D7, and a B value of 00, as the R and G values are both larger than the B value, you would return it as #00FFD7 -- the FF reassigned to G, the D7 to B, and the 00 to R.
+//Hex color codes are also case-insensitive, but your function should output them in the same case they were received in, just for consistency with whatever style is being used.
+//the hex code scale is [0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f] with f being the biggest value.
+// with hex code you have a base of 16 meaning when you get the two values of a color you have to multiply the first number by 16 before adding the second.
+//for example with the color #e9db9b   the two values for R are 	9b  which have values of 14 and 9.  To find the value of this you do this   (14*16) +9=233.  So the green (e9) value is (13*16) + 11=219 and so on
+function yellowBeGone(color) {
+  // first i make obj which has all of the yellow values that need to be changed (in lower case for the insensitive cases) with the correct colors to return.
+  //i also make the array hex which has the hex color codes with the lowest value in the  index. i also made x, y, and str variables for the hex code colors
+  //x is so i can change the color to lower case (to make it much easier to work with if the letters aren't all in lower case).  Y i made equal to color but without the # to make adding it to string easier.  Str is what i will fix and return if the hex color code is too yellow
+  	var obj={ "gold": "ForestGreen", "khaki": "LimeGreen", "lemonchiffon": "PaleGreen", "lightgoldenrodyellow": "SpringGreen",
+             "lightyellow": "MintCream", "palegoldenrod": "LightGreen", "yellow": "Lime" },
+  		hex=["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a","b", "c", "d", "e", "f"],
+    	x, y, str="#";
+  // this if statement checks if the color given matches one of the yellow variations in obj and if it is then it returns the correct color change.  this was the easy part
+  	if (obj[color.toLowerCase()]) { return obj[color.toLowerCase()]};
+  	//rgb(red, green, blue).  #FF D7 00, if R and G bigger than b--> largest g, b ,r
+  	// this if statement checks if the color is in hex code, if it is then it changes the x and y variable into the way i need them and keeps going
+  	if (color[0]==="#"){ x=color.toLowerCase().split(""); y=color.split(""); y.shift(); x.shift();
+    // here i create the variables r, g, and b which are values that those colors represent based on my hex array.
+  	var r=(hex.indexOf(x[0]) *16 + hex.indexOf(x[1])), g=(hex.indexOf(x[2]) *16 + hex.indexOf(x[3])), b=(hex.indexOf(x[4]) *16 + hex.indexOf(x[5]))
+  	// now i check if red and green are both bigger than blue
+    if ( r > b && g>b) {
+      // now with this if statement if red is the biggest value then it rearanges them to make green then biggest, blue the medium, and red the smallest.
+    if (r>g){  str=str+ y[4] + y[5] + y[0] + y[1] + y[2] + y[3]; return str; }
+      // this ones does the same thing but checks if green is bigger than red so i know which letter to switch in what places
+    else if (g>r) { str=str+ y[4] + y[5] + y[2] + y[3] + y[0] + y[1]; return str; }
+                       };
+                       };
+  // now i close the original if statement for hex code and return color which should only happen if it isn't a yellow color in words or hex code.
+ 	return color
+}
+console.log(yellowBeGone("#000000"))//, "#000000")
+console.log(yellowBeGone("#b8860b"))//, "#0bb886")
+console.log(yellowBeGone("lemonchiffon"))//, "PaleGreen")
+console.log(yellowBeGone("#e9db9b")); //expected #9b e9 db' B, r, g
+console.log(yellowBeGone("#3ff2b4"));
