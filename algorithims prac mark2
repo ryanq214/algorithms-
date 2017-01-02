@@ -1,0 +1,71 @@
+
+//this is similar to another street fighter selection challenge that i have done but this one is harder.  the fighter selection grid will be different each time and there will be less fighters in some of the rows(arrays)
+//here is an example:The first character of the first row (Ryu) is not aligned with the first of the second row (Balrog) but with the second (Ken) and the same goes with the other side; therefore we need to introduce something new, like an offset: the Empty Space.
+//The empty space, represented as empty string "", will allow us to keep the grid aligned and rectangular, with spaces that won't be selectable. In this case we need 2 empty spaces (3 rows x 6 columns = 18 slots, 18 slots - 16 characters = 2 empty spaces). Like this:
+// |        | Ryu    | E.Honda  | Blanka  | Guile   |         |
+// | Balrog | Ken    | Chun Li  | Zangief | Dhalsim | Sagat   |
+// | Vega   | T.Hawk | Fei Long | Deejay  | Cammy   | M.Bison |
+//The moves of the selection cursor are the same as before: rotate horizontally but stop vertically. When you find empty spaces (1 or more) you need to skip them if you approach them horizontally and get to the next selectable slot with the next fighter on the left or right; and if you approach them vertically you need to just stop and stay where you are.
+//Example: if you are on Ryu and move left, you must get to Guile; if you are on Balrog and move up, you must stay on Balrog.
+//Notice: I might put empty spaces right in the middle and the rectangular grids can be any size, not only 3x6, deal with this too.
+//WHAT'S NEW
+//So, let's resume what are the new issues in this harder version of the Kata:
+//    The initial position might be any non-empty slot in the grid (given as input).
+//    The characters grid (also given as input) might have any rectangular layout, not only 3 rows.
+//    The grid might contain empty spaces, both on the borders or right in the middle.
+function streetFighterSelection(fighters, position, m){
+  if (m.length===0){ return [];}
+  // first i make these three variables. arr is what i will put in the fighter selected from each m (move).  d is the lenght of the inner arrays in fighters, this is just to make the coding easier so i don't have to type out fighters[x].length-1 each time.
+  //x and y will be the position in the fighters array. X will be wich of the two big arrays in fighters (which row of fighters) and Y will be witch fighter in that row ( the element inside that x array)
+  var x=position[0],y=position[1],d=fighters[x].length-1, arr=[];
+  // i make this for loop to check what move is being made (up, down...) and adjust the x and y variables accordingly
+  	for (var i=0; i<m.length; i++){
+      // if the move is up or down then i change the x var which will change which of the two arrays is being selected in the fighters array.
+      // but as the selecter can't go up past the top row or down past the bottom row if this happense then i leave the x value as it is.  i also make sure that the next fighter choosen isn't a blank space ("").
+      //with this harder street fighter challenge i also have to check for white spaces. so moving up or down i treat these white spaces like i can't go any farther in that direct so i leave the x variable as it is.
+      if (m[i]==="up" && (x!=0) && (fighters[x-1][y] != "")){ x--};
+      if (m[i]=== "down" && (x!=fighters.length-1) && (fighters[x+1][y] != "")) { x++ };
+      // if the move is right or left i change the y variable which will change what fighter in that row is being selected.
+      // but just like the x variable there is a twist. if the y value is all the way to the right and moves right it goes back to the begining of that row, same with the left it will go to the end of the row.
+      //the white spaces make the left and right movemenents much harder than up or down.  if the white space is in the middle of the array then i can just skip two spots in the direction that i am going. but if the white spaces are at the end it is harder.
+      //whichever way i am going i have to check for the white spaces, if that space happens to be the end of that row in whichever way then i have to check if the spot i am going to switch to is also a white space.
+      //for example if i am going left and the row has 4 spots and i start of in the second (index 1) and there are white spaces at both ends then i have to skip three times to end on index 2.
+      if (m[i]=== "right"){
+        if (y===d){
+            if (fighters[x][0] != ""){ y=0 }
+        	else { y=1;}
+        }
+        //here is where i have to check two spaces in advance for the white spaces and check if i am at the end of the row if i skip that space or if the left most space is a white space.
+        else if (fighters[x][y+1] === ""){
+          	if (y+1===d){
+              if (fighters[x][0] != ""){ y=0 }
+              else {y=1}	}
+          	else {y+=2}
+        }
+        else { y++ }; 	}
+      if (m[i]==="left"){
+        if (y===0){
+            if (fighters[x][d] != "" ){ y=d}
+          	else { y=d-1}
+        }
+        //here i am checking two spots to the left like i did with the right movement
+        else if (fighters[x][y-1]=== ""){
+          if (y-1===0){
+            if (fighters[x][d] != "" ){ y=d}
+            else { y=d-1;}
+          }
+          else {y-=2}
+        }
+        else { y--};	}
+      // at the end of each iteration of the loop i push the result of the new position in fighters into the arr array.
+      arr.push (fighters[x][y]);
+    }
+  return arr;
+}
+var f =[
+	[       "",    "Ryu",  "E.Honda",  "Blanka",   "Guile", ""       ],
+	[ "Balrog",    "Ken",  "Chun Li", "Zangief", "Dhalsim", "Sagat"  ],
+	[   "Vega", "T.Hawk", "Fei Long",  "Deejay",   "Cammy", "M.Bison"]
+];
+console.log(streetFighterSelection(f, [1,5],["up","up","up","up"]));
+//-->['Sagat','Sagat','Sagat','Sagat'];
