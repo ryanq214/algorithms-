@@ -69,3 +69,34 @@ var f =[
 ];
 console.log(streetFighterSelection(f, [1,5],["up","up","up","up"]));
 //-->['Sagat','Sagat','Sagat','Sagat'];
+
+//You will be given an array of objects representing data about developers who have signed up to attend the next web development meetup that you are organising. Three programming languages will be represented: Python, Ruby and JavaScript.
+//return true if the number of meetup participants representing any of the three programming languages is at MOST 2 times higher than the number of developers representing any of the remaining programming languages; or
+//return false otherwise.
+
+function isLanguageDiverse(list) {
+  // first i make an obj with the three languages with all of their values at 0.
+  var obj= { "JavaScript":0, "Ruby":0, "Python":0 };
+  // i use the map() method to run throught he list and every time it goes through someone's dat it increase that lanugaes value in the obj object.
+  list.map( function (c,i,a) { return obj[c.language] ++});
+  // now i make two for loops to run through obj.
+  for (var i in obj){
+    // this inner loop allows the outer loop to check all of the other values in obj making sure that the outer loops value isn't more than two times bigger an any other lanugae.  if it is it returns false.
+    // i used a second inside for loop so i could check every value agains all other values not just the ones after it which is what i thought would happen if used just one loop.
+    for (var d in obj){
+    	if (obj[i]> (obj[d]*2) ) { return false;}
+    }
+  }
+  // now i return true, which the function should only get this far if it meets the challenges requirements
+  return true;
+}
+var l1 = [
+  { firstName: 'Daniel', lastName: 'J.', country: 'Aruba', continent: 'Americas', age: 42, language: 'Python' },
+  { firstName: 'Kseniya', lastName: 'T.', country: 'Belarus', continent: 'Europe', age: 22, language: 'Ruby' },
+  { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 43, language: 'Ruby' },
+  { firstName: 'Hanna', lastName: 'L.', country: 'Hungary', continent: 'Europe', age: 95, language: 'JavaScript' },
+  { firstName: 'Jayden', lastName: 'P.', country: 'Jamaica', continent: 'Americas', age: 18, language: 'JavaScript' },
+  { firstName: 'Joao', lastName: 'D.', country: 'Portugal', continent: 'Europe', age: 25, language: 'JavaScript' }
+];
+console.log( isLanguageDiverse(l1));
+//-->false  as the number of JavaScript developers (3) is 3 times higher than the number of Python developers (1). It can't be more than 2 times higher to be regarded as language-diverse.
