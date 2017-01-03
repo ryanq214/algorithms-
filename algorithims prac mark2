@@ -100,3 +100,25 @@ var l1 = [
 ];
 console.log( isLanguageDiverse(l1));
 //-->false  as the number of JavaScript developers (3) is 3 times higher than the number of Python developers (1). It can't be more than 2 times higher to be regarded as language-diverse.
+
+//In this kata, your goal is to write a function which will reverse the vowels in a string. Any characters which are not vowels should remain in their original position. Here are some examples:
+function reverseVowels(str) {
+  //I make several variables for this challenge. vow is an array of all the vowels both upper and lower case, this is to compare the letter in the given string.  count will be used to find the vowel indexes in srting.
+  //arr is a copy of str.split that will be left along and used for switching vowels in str.  str i change into an array with all of the letters and elements split apart.
+  var vow=["a","e","i","o","u","A","E","I","O","U"], count= new Object(), arr=str.split(""),str=str.split("");
+  // here i use the map method to run through the str array and every time i find a vowel(using the vow array to check) i put that index number into the count object.
+  str.map( function (c,i,a) { if (vow.indexOf(c)!=-1){return count[i]=i;} });
+  // now i make two more variables.  x which is the count obj in array form, and y which is the same thing but reversed.  i will use these in the loop below
+  var x=Object.keys(count), y=Object.keys(count).reverse();
+  //here i make a for loop to switch the vowels.  i made the loop go half the length of x which is how many vowels there are in str. i  did this because i will be using y (wich is x reversed) and x together to switch the vowels so i only need to go half the lenght of each
+  for (var i=0; i<x.length/2; i++){
+    // each iteration of the loop i make use x and y as index's in the str array
+    // in the first iteratoin i make the first vowel in str (which would be the first number in x) equal the last vowel (which is the last number in y as it is the revers of x). And vice versa using the arr array which is not changed at all so it equals the original str array.
+    str[x[i]]=str[y[i]];
+    str[y[i]]=arr[x[i]];
+  }
+  return	str.join("");
+}
+console.log(reverseVowels("Hello!")); // "Holle!"
+console.log(reverseVowels("Tomatoes")); // "Temotaos"
+console.log(reverseVowels("Reverse Vowels In A String")); // "RivArsI Vewols en e Streng"
