@@ -122,3 +122,44 @@ function reverseVowels(str) {
 console.log(reverseVowels("Hello!")); // "Holle!"
 console.log(reverseVowels("Tomatoes")); // "Temotaos"
 console.log(reverseVowels("Reverse Vowels In A String")); // "RivArsI Vewols en e Streng"
+
+//The DNA is a long sequence of either cytosine (C), guanine (G), adenine (A), or thymine (T) and their order is crucial for the transmission of genetic information. The reading of this sequence doesn't always happen from the start to the end, but there are some regions that need to be repeated. To do so, the organisms developed a system composed by “transcription factors”. A transcription factor is a molecule that binds to specific DNA sequence (binding sites), thereby controlling the number of repetitions of that sequence.
+//Given these group of transcription factors and relative binding sites:
+/*
+ATF6: "TGACGT"
+CREB: "TGACGCA"
+cMyc: "CACGTG"
+Gata1: "GATT"
+AhR: "TGCGTG"		*/
+//Write a function transFactors that takes the argument seq and returns the transcription factor(s) that bind and the binding position(s) in the sequence (starting from 1). The output should be an object containing an array of the name(s) of the transcription factor(s) and an array of the binding position(s).
+//Please note that some transcription factors could have overlapping binding sites with others (or with themselves).
+function transFactors(seq) {
+  var x,y,z,outp={},ind={"ATF6":[],"CREB":[], "cMyc":[], "Gata1":[], "AhR":[]}, tf={"ATF6":"TGACGT","CREB":"TGACGCA", "cMyc": "CACGTG", "Gata1": "GATT", "AhR": "TGCGTG"};
+  // i made several variables for this challenge.  x,y,z will be explained in the for loop.  outp means output and is what i will return.  ind is what i will put the index values in if any of the sequences match seq. and tf is what i will use to compare seq to.
+
+  for (var i=0; i<seq.length; i++){	// this is a for loop running through the seq given.  i made the x,y,and z variables to make writting code easier incase i had to use them more than once, and to make it more readable.
+
+    //these three variables are the length of characters in the tf object (the specific character sets were looking for) the start of each one is the character at i in this iteration of the loop and the next 5 character for x, next 3 characters for y, and next 6 for z.
+    x=seq[i]+seq[i+1]+seq[i+2]+seq[i+3]+ seq[i+4]+seq[i+5];
+    y=seq[i]+seq[i+1]+seq[i+2]+seq[i+3];
+    z=seq[i]+seq[i+1]+seq[i+2]+seq[i+3]+ seq[i+4]+seq[i+5]+seq[i+6];
+
+    for (var d in tf){//this is an inner for loop running through the tf object comparing x,y, and z to all of the sequences in tf.  if it finds a match it pushes that starting index into the match's array in the ind object.
+
+      	if (x===tf[d]){ ind[d].push(i+1)};
+      	if(y===tf[d]){ind[d].push(i+1)};
+      	if(z===tf[d]){ind[d].push(i+1)};
+    }// end of inner loop
+  }//end of outer loop
+
+  for (var x in ind){// this for loop goes through the ind object and checks the values(arrays) of each property, if their array length is at least one it pushes the property and value into the outp obj..  any factors that had a match will have at least one value in their array's.
+
+    if (ind[x].length>=1){
+    	outp[x]=ind[x]; }
+  }//end of loop
+  return outp;
+}
+seq = "ATGGCTGACGTCGTCATGGCGCCCCGATTGAACGATTCCTCCTCCT"
+console.log (transFactors(seq));	//-->returns: { ATF6: [ 6 ], Gata1: [ 26, 34 ] }
+console.log(transFactors("TGACGTGACGT")); //-->	{ ATF6: [ 1, 6 ] });
+console.log(transFactors("TGCGTGCGTG"));//-->{ AhR: [ 1, 5 ] });
