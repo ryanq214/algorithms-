@@ -163,3 +163,44 @@ seq = "ATGGCTGACGTCGTCATGGCGCCCCGATTGAACGATTCCTCCTCCT"
 console.log (transFactors(seq));	//-->returns: { ATF6: [ 6 ], Gata1: [ 26, 34 ] }
 console.log(transFactors("TGACGTGACGT")); //-->	{ ATF6: [ 1, 6 ] });
 console.log(transFactors("TGCGTGCGTG"));//-->{ AhR: [ 1, 5 ] });
+
+//A traveling salesman has to visit clients. He got each client's address e.g. "432 Main Long Road St. Louisville OH 43071" as a list.
+//The basic zipcode format usually consists of two capital letters followed by a white space and five digits (OH 43071). The list of clients to visit was given as a string of all addresses, each separated from the others by a comma, e.g. :
+//To ease his travel he wants to group the list by zipcode.
+//write a function travel that will take two parameters r (list of all clients' addresses) and zipcode and returns a string in the following format:
+//zipcode:street and town,street and town,.../house number,house number,...
+//The street numbers must be in the same order as the streets where they belong.
+//If a given zipcode doesn't exist in the list of clients' addresses return "zipcode:/"
+function travel(r, zipcode) {
+  r=r.split(","); // first i split the r string by the comma so i can work with each adress seperatly.
+
+  var zi, arr=[],sn=[],x; // i made four variables for this challenge. zi would be the starting index of the zip code in each adress.  arr is where i put the addresses with the right zipcode to work on. sn is where i will put the home number of each address in arr.  x is what i will use to put the home numbers in sn.
+
+  for (var i=0; i<r.length; i++){// in this loop I will compare each adresses zip code to find the right ones.  for this i use the zi to find the starting index of the zip code in each address. i put the riht ones into the arr array.
+
+    zi=r[i].length-8;
+    if (zipcode===r[i][zi]+r[i][zi+1]+r[i][zi+2]+r[i][zi+3]+r[i][zi+4]+r[i][zi+5]+r[i][zi+6]+r[i][zi+7]){
+        arr.push(r[i]);}
+  }// end of loop
+
+  for (var i=0; i<arr.length; i++){// in this loop i mess with the arr array going through each address to return in the right way for the challenge.
+
+    zi=arr[i].length-8;// i use zi again to help find the zip code in the address
+
+  	arr[i]=arr[i].split(""); arr[i].splice(zi-1);arr[i]=arr[i].join("");
+    //with the code above i split each address into the individual character.  then i get rid of the zip code at the end of each address and pop the white space at the end. Finally i put the address back together.
+
+    arr[i]=arr[i].split(" "); x=arr[i].shift(); arr[i]=arr[i].join(" ");
+    //in this line i once again split each address but this time i split it by white spaces keeping the words together. And as the firs index in this equals the house number i get rid of it in each element and put that into the x variable.  And then i join the address back together. 
+
+    sn.push(x);// here i push the house number that currently equals x into the sn array.
+  }// end of loop
+
+  if (arr.length===0){ return `${zipcode}:/`};	// here i check if any address had a zip code that matched, if none did then i returned the default answer
+
+  return zipcode + ":" +(arr.join(",")) + "/" + sn.join(",");// here i join the zipcode, arr , and sn together to form my answer in the way required.
+}
+var r = "123 Main Street St. Louisville OH 43071,432 Main Long Road St. Louisville OH 43071,786 High Street Pollocksville NY 56432"
+console.log(travel(r, "OH 43071"))// --> "OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432"
+console.log(travel(r, "NY 56432"))// --> "NY 56432:High Street Pollocksville/786"
+console.log(travel(r, "NY 5643"))// --> "NY 5643:/"
