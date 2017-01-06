@@ -230,3 +230,41 @@ a lovely woman as a life partner
 7*/
 (1).toString();
 //-->1
+nd
+
+//Check if the elements of an array form an arithmetic progression or if the array contains a sequence of elements that form an arithmetic progression.
+//If the entire array forms an arithmetic sequence, the function returns true. If it's not an arithmetic progression itself but it contains at least one, return the index of the element where the first arithmetic sequence starts. If it's not one itself and it doesn't contain any, return false.
+//An arithmetic sequence will always consist of at least 3 numbers. If this condition is not satisfied, the function will return undefined.
+//The function hasArithmProg takes a single parameter, arr, and can return a boolean, a number(the index) or undefined.
+//An arithmetic progression is a sequence of numbers such that the difference between two consecutive terms is a constant quantity.
+//e.g. 1, 2, 3, 4,... constant = 1 e.g. 9, 7, 5, 3,... constant = -2
+
+function hasArithmProg(arr) {
+  if (arr.length<3){ return undefined};	// here i check if the array has at least three elements in it, if it doesn't i return undefined
+
+  var x=true,temp=arr[0]-arr[1];
+  // i made three variables for this challenge.  x is set to true to start with and will be used in the firs loop.  temp is the value of the first index - the second and will also be used in the firs loop.
+
+  for ( var i=0; i<arr.length; i++){// in this loop i check if there is an arithmetic sequence in the entire array. i made the temp variable because it has the value of the difference of the first two indexes.  every iteration of the loop i check to see if the current index minus the next index equals the temp variable (and i made sure that the test won't run on the last element.)
+    								//if there is a sequence then every element minus the next should have the same value as temp. if the loop finds a break in the sequence then i make x equal false and break the loop.
+
+   	if ( (i<arr.length-1) && temp != arr[i]-arr[i+1]){
+      	x=false; break; }
+  }// end of loop
+
+  if (x===true){ return x};// here i check x is still true which it should only be if there is a sequence throught the entire array. if it is I return true.
+
+  for (var i=0; i<arr.length; i++){// in this loop i check if there is a sequence with at least three elements in the array.  if there is i return the index at the starting point of that sequence.
+
+    if (arr[i]-arr[i+1] === arr[i+1]-arr[i+2]){
+      return i;}
+  }// end of loop
+
+  return x;// here i return x which is false. the function should only get this far if there is no sequence in the array.
+}
+
+console.log(hasArithmProg([9,5,1]))//, true);
+console.log(hasArithmProg([9,1,2,14,46]))//, false);
+console.log(hasArithmProg([90,2,4,6,8,14]))//, 1);
+console.log(hasArithmProg([2,10,4,6]))//, false)
+console.log(hasArithmProg([9,1]))//, undefined);
