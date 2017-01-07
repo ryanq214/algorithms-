@@ -268,3 +268,23 @@ console.log(hasArithmProg([9,1,2,14,46]))//, false);
 console.log(hasArithmProg([90,2,4,6,8,14]))//, 1);
 console.log(hasArithmProg([2,10,4,6]))//, false)
 console.log(hasArithmProg([9,1]))//, undefined);
+
+//Build a function sumNestedNumbers that finds the sum of all numbers in a series of nested arrays raised to the power of their respective nesting levels. Numbers in the outer most array should be raised to the power of 1.
+function sumNestedNumbers(arr,pw) {
+  if(pw===undefined) {pw=1};// for this challenge i created another parameter pw.  i set it equal to 1 if it is not alrady set when the function is called.
+
+  var t=0;	//the t variable is the total that i will return
+  for (var i=0; i<arr.length; i++){// i made a loop to go through and check every element of the array.
+
+    if (Array.isArray(arr[i])){		// in this if statement it checks if the element is also an array. if it is an array then i use recursion to call this same function on that element increasing the pw by 1, and then i add that result to t.
+
+      t+=sumNestedNumbers(arr[i], pw+1);
+  		}
+ 	else {t=t+Math.pow(arr[i],pw)};		// if the element is not an array then it adds that element to the power of pw to t.
+
+  };   //end of loop
+  return t ;
+}
+
+console.log(sumNestedNumbers([1, [2], 3, [4, [5]]  ]))
+//-->1 + 2*2 + 3 + 4*4 + 5*5*5 = 149
