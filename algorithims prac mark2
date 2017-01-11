@@ -288,3 +288,51 @@ function sumNestedNumbers(arr,pw) {
 
 console.log(sumNestedNumbers([1, [2], 3, [4, [5]]  ]))
 //-->1 + 2*2 + 3 + 4*4 + 5*5*5 = 149
+
+
+//"Every even integer greater than 2 can be written as the sum of two primes"---which is known today as the (strong) Goldbach's conjecture.
+//Even though it's been thoroughly tested and analyzed and seems to be true, it hasn't been proved yet (thus, remaining a conjecture.)
+//Your task is to implement the function in the starter code, taking into account the following:
+/*  If the argument isn't even and greater than two, return an empty array.
+    For arguments even and greater than two, return a two-element array with two prime numbers whose sum is the given input.
+    The two prime numbers must be the farthest ones (the ones with the greatest difference)
+    The first prime number must be the smallest one.		*/
+
+function isPrime (num){// 	this function is to check if a number is prime
+
+    for(var i = 2; i < num; i++) {
+        if(num % i === 0) {
+            return false;
+        }
+    }
+    return num > 1;
+}
+function checkGoldbach (n) {
+  if (n<=2 || n%2!= 0){ return []};	// first i made sure that the number is greater than 2 and not an even number
+
+  if (n===4){ return [2,2]};	// i make this because four was the only number i could think of would return 2 like this.
+
+  var out=[];
+  for (var i=3; i<n; i+=2){// this outer loop goes through every odd number between 2 and n
+
+    if (isPrime(i)){	// if the number is prime i use this inner loop
+
+      for (var d=n-1; d>=n/2; d-=2){	//this inner loop looks for a number that is prime going from n to half of n.
+
+        if (isPrime(d) && i+d ===n){	// if it finds a number that adds with i to equal n then it pushes those number into the out array and returns it.
+
+          out.push(i), out.push(d);
+          return out;
+        }
+      }// end of inner loop
+  	}// end of if statement
+  }// end of outer loop
+  return out;	// if no two number were found that match the challenges conditions then the out array is returned empy.
+
+}
+
+console.log(checkGoldbach(2))// -->[]
+console.log(checkGoldbach(5))// -->[]
+console.log(checkGoldbach(4))// -->[2, 2]
+console.log(checkGoldbach(6))// -->[3, 3]
+console.log(checkGoldbach(14))// -->[3, 11]
