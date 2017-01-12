@@ -336,3 +336,26 @@ console.log(checkGoldbach(5))// -->[]
 console.log(checkGoldbach(4))// -->[2, 2]
 console.log(checkGoldbach(6))// -->[3, 3]
 console.log(checkGoldbach(14))// -->[3, 11]
+
+
+//Can you mirror the properties on an object?
+//Given an object with properties with no value
+/*		abc: -
+		arara: -
+		xyz: -		*/
+//Return a new object that have the properties with its mirrored key!
+/*		abc: cba
+		arara: arara
+		xyz: zyx		*/
+//"You cannot change the original object, because if you did that the reflection would change."
+
+function mirror (obj) {
+  var nob={};// i created this var nob (new object) to return as the answer
+
+  for (var i in obj){	// in this for loop i go through each property in obj and set that property in nob and make it equal the reverse of that property
+
+    nob[i]=i.split("").reverse().join("");	// to make the value the reverse i split it into individual characters, reverse them, and then join them together again.
+
+  }
+  return nob;
+};
