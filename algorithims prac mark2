@@ -359,3 +359,39 @@ function mirror (obj) {
   }
   return nob;
 };
+
+
+//Did you ever see the movie called Snakes on a Plane?
+//In this Kata there are also snakes on a plane but now YOU can be the hero.
+//Count how many snakes are on the plane
+//Notes:
+//    snakeskins are uniquely patterned with a single character per snake
+//    snakes can be any length
+// the array that is given to you will have other arrays as the elements (snakes).
+
+function snakesOn(p) {
+  var ar=[];	// i made this empy array to push in the letters (snakes) in
+
+  for (var i=0; i<p.length; i++){	// this loop goes through every element in the given p array
+
+    for (var d=0; d<p[i].length; d++){	// this inner loop goes through the array of each i element in the p array.
+
+      if (p[i][d] != "_" && ar.indexOf(p[i][d]) === -1){	// this checks each element (d) firs to make sure that the element isn't "_" and then that the letter isn't already in the ar array.
+
+        ar.push(p[i][d]);	// if the letter isn't in the ar array then i push that letter in ar.
+      }	// end of if statement
+    }	// end of inner loop
+  }		// end of outer loop
+
+  return ar.length;	// finally i check the length of the ar array as the number of snakes.
+};
+
+ var aPlane = [
+        '_A_AAAAA__'.split(''),
+        '_AA____AAA'.split(''),
+        'D_AA_____A'.split(''),
+        'DD_AAAAA_A'.split(''),
+        '_D_____AAA'.split('')
+      ]
+
+console.log(snakesOn(aPlane));	//-->2
