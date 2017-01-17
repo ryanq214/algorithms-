@@ -395,3 +395,58 @@ function snakesOn(p) {
       ]
 
 console.log(snakesOn(aPlane));	//-->2
+
+
+//all you have to do is determine whether the distances between any visiting cats in the yard are large enough to make for a peaceful afternoon, or whether there is about to be an altercation because they are too close and someone will need to deal with it.
+//As input your function will receive a list of strings representing the yard, and an integer representing the minimum distance needed to prevent problems (considering the cats' current states of sleepiness). A point with no cat in it will be represented by a "-" dash. Lou, Mustache Cat, and Raoul will be represented by an upper case L, M, and R respectively. At any particular time all three cats may be in the yard, or maybe two, one, or even none.
+//If the number of cats in the yard is one or none, or if the distances between all cats are at least the minimum distance, your function should return True/true/TRUE (depending on what language you're using),
+//But if there are two or three cats, and the grid distance between at least two of them is smaller than the minimum distance, your function should return False/false/FALSE.
+//the minimum distance is at 6 any less and there will be a cat fight
+function peacefulYard(y, min) {
+  	var c=[ "M", "L", "R"];	// this var is the cat names as they will appear in the y array.
+
+    for (var i=0; i<y.length; i++){	// outer loop
+      for (var d=0; d<y[i].length; d++){	// in this inner loop i check through each element in the y array for the cats (L, M or R).  if I find them then i put that gird spot (i,d) in the c array in place of that cat's name.
+
+        if (c.indexOf(y[i][d]) != -1){
+         c[c.indexOf(y[i][d])]= [i,d];}
+
+      }	// end of inner loop
+    }	// end of outer loop
+
+  	// in these dis var i find the grid difference between two of the cats in the c array, if there wasn't a particular cat in the y array then the dis var will be a NAN.
+  var dis1= Math.sqrt( Math.pow( (c[0][0] -c[1][0]),2) + Math.pow( (c[0][1] -c[1][1]),2) ),
+      dis2= Math.sqrt( Math.pow( (c[1][0] -c[2][0]),2) + Math.pow( (c[1][1] -c[2][1]),2) ),
+      dis3= Math.sqrt( Math.pow( (c[0][0] -c[2][0]),2) + Math.pow( (c[0][1] -c[2][1]),2) ),
+  	  ar=[dis1,dis2,dis3];	// and this var is the dis in an array.
+
+  	for (var i=0; i< ar.length; i++){	// in this loop i check the distances between any cats in the yard is at least the min distance, otherwise i return false.
+
+      if (ar[i] <min){ return false;}
+    }
+  return true;
+}
+
+var one=["------------",
+ "------------",
+ "-L----------",
+ "------------",
+ "------------",
+ "------------"]; min dis= 10
+
+var two=["------------",
+ "---M--------",
+ "------------",
+ "------------",
+ "-------R----",
+ "------------"];	// min dis=6
+
+var three=["-----------L",
+ 			"--R---------",
+            "------------",
+ 			"------------",
+ 			"------------",
+ 			"--M---------"];  //min dis= 4
+console.log(peacefulYard(one,10));	//--> true
+console.log(peacefulYard(two,6));	//--> false
+console.log(peacefulYard(three, 4));	//-> true
