@@ -450,3 +450,105 @@ var three=["-----------L",
 console.log(peacefulYard(one,10));	//--> true
 console.log(peacefulYard(two,6));	//--> false
 console.log(peacefulYard(three, 4));	//-> true
+
+
+//In this Kata, you need to simulate an old mobile display, similar to this one:
+/*  ***************************
+    *                         *
+    *                         *
+    *        CodeWars         *
+    *                         *
+    *                         *
+    * Menu           Contacts *
+    ***************************		*/
+//Input Parameters:
+//    number of characters for width (n)
+//    height-to-width ratio in percentage (p)
+//Example: if n=30 and p=40, then display will be 30 characters long and its height will be 40% of n(12 characters in this case).
+
+//Rules and Notes:
+/*  the border, as you can see, is filled with *;
+    the rounding of divisions and float numbers is always by the integer (1.2, 1.5, 1.9 they are always reduced to 1), keep this in mind when you calculate proportions
+    the menus Menu and Contacts are always in the second last line, at 1 character distance respectively from the left and from the right border;
+    the CodeWars logo is always in the middle horizontally and in the half-1 line vertically;
+    	the width n must be always at least 20 characters and the percentage p must be always at least 30%, take care of this (otherwise menus won't likely fit).
+    random tests might get big and percentages might be higher than 100;	*/
+
+function mobileDisplay(n,p){
+  p= Math.floor((n*p)/100);	// this sets the p variable to be the p percent of n rounded down to the nearest whole integer.
+
+  var s="", space="*", end="", med="", m="* Menu", c="Contacts *\n", ls=n-16, ms=Math.floor((n-10)/2-1);
+
+  for (var i=0; i<=ms; i++){	// this loop sets the number of spaces required for the medium line with codewars in it.  the spaces are are on both sides of the word codewars, so the med var will be half that number of spaces.
+
+    med+=" ";
+  };	// end of loop
+
+ 	 // these two if and else statements are to test if the n is odd, because then that would make the necessary spaces on the sides of codewars be uneven.  if it is odd then i add an extra space on the right side.
+  if (n%2!=0){ med=( "*" + med + "CodeWars" + med + " *\n") }
+  else {med=( "*" + med + "CodeWars" + med + "*\n") }
+
+
+  for (var i=0; i<n; i++){	// this loop sets the number of * in the s and end var equals to n, and the number of white spaces between the *'s in the middle lines necessary.
+
+    end+="*";
+    s+= "*";
+
+    	// this if statement checks for the last iterationof the loop.  if it is then after it changes the end and s var it adds a * at the end of the space var instead of a white space. and then it breaks the loop.
+    if (i===n-1){space=space.split(""); space.pop();
+                 space=space.join(""); space +="*";
+                 s+="\n"; break;}	// end of if statement
+    space+= " ";
+  }	// end of lop
+
+  for (var i=0; i<p-3; i++){	// this loop to add the lines in the middle of the boxes (ex: *       *\n) with the exception of the middle line that has code wars and the second to last line with Menu and contacs in it and the very last line.
+
+    if (i===Math.floor(p/2-2)){s+=med;continue;}	// this if statement checks if the line about to be made is the middle of the box, if it instead adds the line with the codewars in it.
+
+  	s+=space; s+="\n";
+  }	// end of loop
+
+  s+=m;	//this adds the m var ("* Menu") the beginning of the second to last line
+
+  for (var i=0; i<ls; i++){	// this loop adds the number of white spaces necessary between menu and contact
+
+    s+=" ";
+  }	// end of loop
+
+  s+=c;	// this adds the end of the second to last line.  the "Contacts *\n"
+
+  s+=end;	//this adds the last line which is the same as the very first.
+
+  return s
+}
+
+//Examples:
+//    mobileDisplay(30,40):	-->
+/*  ******************************
+    *                            *
+    *                            *
+    *                            *
+    *                            *
+    *    (10)  CodeWars          *
+    *                            *
+    *                            *
+    *                            *
+    *                            *
+    * Menu(5)  (14)  (9)Contacts *
+    ******************************	*/
+
+//		mobileDisplay(25,50):-->
+/*    *************************
+      *                       *
+      *                       *
+      *                       *
+      *                       *
+  (6) *(7) (8)CodeWars    (7) *
+      *                       *
+      *                       *
+      *                       *
+      *                       *
+      * Menu         Contacts *
+      *************************		*/
+
+s
