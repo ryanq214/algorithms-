@@ -551,4 +551,34 @@ function mobileDisplay(n,p){
       * Menu         Contacts *
       *************************		*/
 
-s
+
+//You'll have to translate a string to Pilot's alphabet (NATO phonetic alphabet) wiki.
+//Ex---Input: If you can read
+//Output: Indian Foxtrot Yankee Oscar Uniform Charlie Alfa November Romeo Echo Alfa Delta
+//    Keep the punctuation, and remove the spaces.
+//    Use Xray without dash or space.
+function to_nato(w) {
+  		//first i made s as an empy array var, this is what i will put the translations into. And then i made the object alp with has all of the NATO phonetic alphabet with the corresponding Letter in upper case.
+
+  var s=[],alp={ "A":"Alfa","B":"Bravo", "C":"Charlie","D":"Delta","E":"Echo","F":"Foxtrot",
+           "G":"Golf","H":"Hotel","I":"India","J":"Juliett","K":"Kilo","L":"Lima",
+           "M":"Mike","N":"November","O":"Oscar","P":"Papa","Q":"Quebec","R":"Romeo",
+           "S":"Sierra","T":"Tango","U":"Uniform","V":"Victor","W":"Whiskey",
+           "X":"Xray","Y":"Yankee","Z":"Zulu"  };
+
+  w=w.toUpperCase().split(" ").join("").split("");	// here i made every letter in w uppercase so find them in the alp object.  and then i split the phrase into an array by space, then i joined it all togther to make 1 word which gets rid of all white spaces.  and finally i split it into indiviual letter.
+
+  for (var i=0; i<w.length; i++){	// in this loop i am checking if each character is a letter or not
+
+    		// if the character is a letter then i push that NATO tranlation into the s array.
+    if (alp[w[i]]!=undefined){
+      s.push(alp[w[i]]);
+    }
+
+    		//if the character isn't a letter (which whould only be punctuation of some kind or commas) then i push it straight into the s array.
+    else{ s.push(w[i])}
+
+  }	//end of loop
+  return s.join(" ");
+}
+console.log(to_nato(i));
