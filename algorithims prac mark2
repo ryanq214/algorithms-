@@ -582,3 +582,62 @@ function to_nato(w) {
   return s.join(" ");
 }
 console.log(to_nato(i));
+
+
+//Given n representing the number of floors build a beautiful multi-million dollar mansions like the ones in the example below:
+function myCrib(n) {
+  var r="/",roof="",roofwall="",inSpace="", outSpace= (n*2), wall="|", house="|", floor="|";
+
+  for (var i=0; i<outSpace; i++){		//this loop is to maket the necessary spaces between the walls, floor, and bottom of the roof where it touches the house (r).
+    r+="_";
+    wall+=" ";
+    house += " ";
+    floor+="_";
+  }		// end of loop
+
+  r+="\\";  house += "|"; wall +="|"; floor+="|";		// this line adds the other side to these variables, the other wall
+
+  		//this part is to set up the walls and floor.
+  for (var i=0; i<n-2; i++){	// this loop is to expand the walls up and down, to make the full house except the roof and floor;
+   wall+= "\n"+ house;
+  }		//end of loop
+
+  if (n>1){ wall = wall +"\n" + floor;}	// this is to set the floor and wall together.  if the house is only 1 level i skip this part as just the floor level is enough.
+  else { wall=floor;}
+
+  		// this part below is to set up the rest of the roof
+  outSpace=n-1;			
+  for (var i=0; i<n; i++){			// these two loops are to make the majority of the roof with the exception of where it touches the house, which is already made with r .
+
+    for (var d=0; d<=outSpace; d++){	// this inner loop uses the outSpace variable set just before this loop as it's limit.  this is to set the space on the sides of the roof to level it with the rest of the house to make a triagle.
+      roofwall+=" ";
+    }	// end of inner loop
+
+    outSpace -=1;		// this increments the outSpace var down by 1 to keep the house walls going down proportionalty like the sides of a triagle.
+
+    roof= roof+ roofwall+ "/"+ inSpace+ "\\" + roofwall+ "\n";		//here i add the roofwall with the /, inSpace (which is the space inside the roof between the / and \), \, and \n to make a full level of the roof.
+
+    roofwall=""; inSpace+="  ";		// here i set the roofwall back to blank to start the next level to add onto the roof var, and i also add two spaces to the inSpace var to make the next level proportionate.
+  }
+
+  return roof+ r+"\n"+ wall;
+}
+
+/*   /\		(8 splaces of line across this house (n *2)+2
+    /  \	8 lines up and down
+   /    \
+  /______\  // number of floors 3		(bottom of roof has 6 spaces(_) between the /\
+  |      |
+  |      |
+  |______|
+     /\			6 spaces across (n*2)+2
+    /  \
+   /____\
+   |    |   // 2 floors
+   |____|
+     /\
+    /__\    // 1 floor
+    |__|						*/
+console.log(myCrib(3));
+console.log(myCrib(2));
+console.log(myCrib(1));
