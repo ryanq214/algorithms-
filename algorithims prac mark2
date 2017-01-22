@@ -606,7 +606,7 @@ function myCrib(n) {
   else { wall=floor;}
 
   		// this part below is to set up the rest of the roof
-  outSpace=n-1;			
+  outSpace=n-1;
   for (var i=0; i<n; i++){			// these two loops are to make the majority of the roof with the exception of where it touches the house, which is already made with r .
 
     for (var d=0; d<=outSpace; d++){	// this inner loop uses the outSpace variable set just before this loop as it's limit.  this is to set the space on the sides of the roof to level it with the rest of the house to make a triagle.
@@ -641,3 +641,32 @@ function myCrib(n) {
 console.log(myCrib(3));
 console.log(myCrib(2));
 console.log(myCrib(1));
+
+
+//Given an array as an argument complete the function countSmileys that should return the total number of smiling faces.
+//Rules for a smiling face:
+/*-Each smiley face must contain a valid pair of eyes. Eyes can be marked as : or ;
+  -A smiley face can have a nose but it does not have to. Valid characters for a nose are - or ~
+  -Every smiling face must have a smiling mouth that should be marked with either ) or D.	*/
+//Valid smiley face examples:
+//	:)  :D  ;-D  :~)
+//Invalid smiley faces:
+//	;(  :>   :}   :]
+
+function countSmileys(arr) {
+	var t=0, smiles=[":)",";)",":D",";-D",":~)",":-D",";D",":-)",";~)",";~D"];
+  arr.filter(function (c,i,a){ c=c.replace(/\s+/g,"");if (smiles.indexOf(c) != -1){return t+=1;} } )
+  return t;
+}
+console.log(countSmileys([':)', ';(', ';}', ':-D']));       // should return 2;
+console.log(countSmileys([';D', ':-(', ':-)', ';~)']));     // should return 3;
+console.log(countSmileys([" ;~( "," ;D "," :> "," ;-D "," :o) "," :~) "," :)"])); // should return 4
+
+//this is another version
+/*function countSmileys(arr) {
+	var t=0;
+  arr.filter(function (c,i,a){ c=c.replace(/\s+/g,"");c=c.split("");
+                              if ( (c[c.length-1] === ")" || c[c.length-1]==="D")
+                              && c[c.length-2]!= "o")   { return t+=1;} } )
+  return t;
+}	*/
