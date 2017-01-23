@@ -670,3 +670,45 @@ console.log(countSmileys([" ;~( "," ;D "," :> "," ;-D "," :o) "," :~) "," :)"]))
                               && c[c.length-2]!= "o")   { return t+=1;} } )
   return t;
 }	*/
+
+
+this is another version of the code
+function countDays(d){
+  var today = new Date(), tdarr=[], d8arr=[], daysLeft, currentMonthDays, dMonth, tot_days=0, leapYearDay=0, difvar=2020,
+      daysLeft=[[1,31],[2,28],[3,31],[4,30],[5,31],[6,30],[7,31],[8,31],[9,30],[10,31],[11,30],[12,31]	];
+
+  tdarr[0]= today.getMonth(); d8arr[0]=d.getMonth();		//these three lines are to set up the tdarr(today) and d8arr (date given-d) arrays so it's Month, day, year.
+  tdarr[1]= today.getDate();	d8arr[1]= d.getDate();
+  tdarr[2]= today.getFullYear();	d8arr[2]= d.getFullYear();
+
+  if (tdarr.join(" ")=== d8arr.join(" ")){ return "Today is the day!"}	//this line checks if the dates are the same
+
+  		//these three lines are to check if d is in the past by checking it against today's date by checking the year, then month, and then day
+  if (tdarr[2]>d8arr[2]){ return "The day is in the past!"}		//this checks year
+  else if (tdarr[2]===d8arr[2] && tdarr[0]>d8arr[0]){ return "The day is in the past!"}		// checks month
+  else if (tdarr[2]===d8arr[2] && tdarr[0]===d8arr[0] && tdarr[1] >d8arr[1]){ return "The day is in the past!"}		//checks day
+
+  dMonth=d8arr[1]		//this var is the days in the month of d that have passed.
+  currentMonthDays= daysLeft[tdarr[0]][1]-tdarr[1];	// these two lines are to find how many months are left in the Current month (ex: if taday is jan 29th, then there would be 3 days left in jan.)
+    if (currentMonthDays===0){ currentMonthDays= daysLeft[tdarr[0]][1]}; // this line checks if the currentMonth var is equal to zero which should only happen if the curren date given is the last day of that month, in this case i make currentMonthDays equal that months total days.
+
+  if (tdarr[2] ===d8arr[2] && tdarr[0]===d8arr[0]){ return `${d8arr[1] -tdarr[1]} days`}		//this checks if the d given is in the same month as the current month but still in the future, in that case it returns the difference in days.
+
+  for (var i=(tdarr[0]+1); i<(d8arr[0]); i++){	// this loop goes through every month between todays date (td) and the date given (d) (but not those two months) and adds all of the days of those months to the var tot_days
+      tot_days +=daysLeft[i][1];
+    }	//end of loop
+
+    tot_days += (dMonth+currentMonthDays);	// now i add the differences between how many days are left in the td and d months to the tot_days var.  in this case there are 13 days left in jan and the full 28 days left to get the the d day given.  so 41 days are left between the two dates
+
+  if (tdarr[2]<d8arr[2]){ tot_days +=(365 * (d8arr[2]-tdarr[2])) }		// this line is to add the total number of years (times 365) d is greater than today
+
+  for (var i=2021; i<=d8arr[2]; i+=4){		// this loop is to add a day to the tot_days for each leap year between today and t
+    leapYearDay +=1;
+    if (difvar + 95.6 < i){ leapYearDay -=1;	difvar=i;}
+  }
+  tot_days+= leapYearDay;
+  //if (d8arr[2] >2019 && d8arr[2]< 2026){ tot_days-=1}
+
+  return `${tot_days} days`;
+}
+console.log (countDays(new Date("February 28, 2017")))  //-->
