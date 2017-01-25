@@ -712,3 +712,37 @@ function countDays(d){
   return `${tot_days} days`;
 }
 console.log (countDays(new Date("February 28, 2017")))  //-->
+
+
+//this is another version of the smiles challenge 2 challenges above this.
+//apparently there were a few instances of my code not working.
+
+//Given an array as an argument complete the function countSmileys that should return the total number of smiling faces.
+//Rules for a smiling face:
+/*-Each smiley face must contain a valid pair of eyes. Eyes can be marked as : or ;
+  -A smiley face can have a nose but it does not have to. Valid characters for a nose are - or ~
+  -Every smiling face must have a smiling mouth that should be marked with either ) or D.	*/
+//Valid smiley face examples:
+//	:)  :D  ;-D  :~)
+//Invalid smiley faces:
+//	;(  :>   :}   :]
+
+function countSmileys(arr) {
+	var t=0, smiles=[":)",";)",":D",";-D",":~)",":-D",";D",":-)",";~)",";~D",":~D",";-)"];
+  					//the smiles array contains every smile that i found in the test cases, i will use this to compare the arr given.
+  arr.filter(function (c,i,a){ c=c.replace(/\s+/g,"");if (smiles.indexOf(c) != -1){return t+=1;} } )	//this filters each element of the arr array and checks if that element is in the smiles array, if it it it adds 1 to t.
+
+  return t;
+}
+
+console.log(countSmileys([':)', ';(', ';}', ':-D']));       // should return 2;
+console.log(countSmileys([';D', ':-(', ':-)', ';~)']));     // should return 3;
+console.log(countSmileys([" ;~( "," ;D "," :> "," ;-D "," :o) "," :~) "," :)"])); // should return 4
+
+here is a version of the code above using regular expression
+function countSmileys(arr) {
+	var t=0;		// this var will be the total number of smiles found
+  arr.forEach(function (c,i,a){ if (c.match (/[:;][-~]?[)D]/gi) ){ return t+=1} } )	//this filters each element of the arr array and checks if that element is a smile using regular expression to check, if it is it adds 1 to t.
+
+  return t;
+}
