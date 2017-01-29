@@ -746,3 +746,45 @@ function countSmileys(arr) {
 
   return t;
 }
+
+
+//Validate all numbers to make local calls from the capital city at the Mexican United States.
+//The first two digits are the lada. Lada can only be 55 or 56 for those Mexico City phone numbers.
+//Valid numbers:
+/*  (56) 84 65 52
+    (56) 84 6552
+    (56) 846552
+    (56)846552
+    56 84 65 52
+    56 84 6552
+    56 846552
+    56846552
+    55 95 64 85
+    55 95 6485
+    55 956485
+    55956485		*/
+//Non-Valid numbers:
+/*  99956485
+    abcdefgh
+    (56) 84 6 552	*/
+
+var isValidMXPhoneNumber = function(str) {
+  var l=0, r=0, s;
+  for (var i=0; i<str.length; i++){
+	if (str[i]==="(") { l +=1; }
+    if (str[i]===")") { r +=1;}
+  }
+  if (l!=r) { return false}
+  s=str.replace ("(","");	s=s.replace (")","");		// this line is to remove the parenthesis in str.
+
+  if (s[0] + str[1] != "55" && s[0] + s[1] != "56"){ return false}
+  if (s.replace(/\s/gi,"").length != 8){ return false}	//these two lines are to make sure that the first numbers are 55 or 56 and that there are only 8 character in total.
+
+  if ( str.match(/(\(*?\d\d\)*? \d\d \d\d \d\d)/ ) || str.match(/(\(*?\d\d\)*? \d\d \d\d\d\d)/) ||
+       str.match(/(\(*?\d\d\)*? \d\d\d\d\d\d)/)   || str.match(/(\(*?\d\d\)*?\d\d\d\d\d\d)/)  ){ return true}
+  else { return false}
+  return false;
+};
+
+console.log(isValidMXPhoneNumber( "(56)) 84 65 52"));//--> true
+console.log(isValidMXPhoneNumber(  "(56) 846 552"));//--> false
