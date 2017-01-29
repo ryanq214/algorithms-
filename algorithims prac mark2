@@ -788,3 +788,92 @@ var isValidMXPhoneNumber = function(str) {
 
 console.log(isValidMXPhoneNumber( "(56)) 84 65 52"));//--> true
 console.log(isValidMXPhoneNumber(  "(56) 846 552"));//--> false
+
+
+//Given some text, count each alphabetic character's occurrence in it, regardless of the case.
+//Let's suppose you have to use an old terminal window to represent the occurrencies of each character in a text-based horizontal bar graph. The terminal has a maximum width, provided as parameter (max_units_on_screen), and you have to abide by it.
+//For example, if the maximum width is 80, your longest bar in the graph will be scaled to this size and all the others have to be represented and scaled proportionally to this size. Every unit of the bar will be represented by the character #. See examples below for typical output format.
+//The bars of the graph have to be sorted by number of occurrencies (from biggest to lowest, before getting scaled), then by alphabetic order of the letter (from a to z). Approximation of decimal numbers will happen on the lowest integer (for example: 57.1, 57.2, 57.68, 57.999 will all get reduced to 57 )
+//Input:	count_and_print_graph("just a short text", 4)
+//Output:
+/*      t:####		4
+        s:##		2
+        a:#			1
+        e:#
+        h:#
+        j:#
+        o:#
+        r:#
+        u:#
+        x:#			*/
+
+//Input:	count_and_print_graph("just a short text", 23)
+//Output:
+/*  t:#######################	(23)		(23/4=5.75)
+    s:###########		(11)	2* 5.75 math.floor
+    a:#####		(5)	1* 5.75 math.floor
+    e:#####
+    h:#####
+    j:#####
+    o:#####
+    r:#####
+    u:#####
+    x:#####				*/
+function countCharsBarGraph(text, maxw) {
+  var alp={ a:0, b:0, c:0, d:0, e:0, f:0, g:0, h:0, i:0, j:0, k:0, l:0, m:0, n:0, o:0, p:0, q:0, r:0, s:0, t:0, u:0, v:0, w:0, x:0, y:0, z:0},
+      obj={}, max=0, max1=0, comp=0, str, retStr="";
+
+  text=text.replace(/\s/gi,""), text=text.toLowerCase();		// this line gets rid of all of the white spaces in text and changes all letters to lower case
+
+  for (var i=0; i<text.length; i++){	//this loop adds 1 to the letter in alp every time it finds that letter in text
+    alp[text[i]]+=1;
+  }		//end of loop
+
+  for (var i in alp){
+    if (alp[i]>max){ max = alp[i], max1=alp[i]}
+  }
+  //max=Object.values(alp).sort(function (a,b) { return b-a})[0];		//this makes the max var equal the largest number in the alp object, which will equal the letter that appears the most in text.
+
+  while (max>0){		//this while loop combined with a foor loop puts the letters in text into the obj var with their corresponding numebers in order of largest to smallest and them in alphabetical order after size.
+
+    for ( var i in alp){
+      if (alp[i]===max){
+        obj[i]=max; }
+    }
+    max-=1;
+  }			// end of while loop
+
+
+  max= max1;//	Object.values(alp).sort(function (a,b) { return b-a})[0];		// here i make max eqaul the top number in the alp obj again.
+
+  str="#".repeat(maxw);			// this line makes a string of # the length of maxw
+  comp= (maxw/max);				// this line is to make the comp var (comparison) equal to maxw divided by the biggest number in obj.  this will be used to change the other letter proportionaltely
+
+  for ( var i in obj){			// this loop  makes each letter in obj equal the number of # in str instead of the number itself.
+
+    obj[i]=str.slice(0, Math.floor( comp *obj[i]) );
+  }			//end of loo p
+
+  for (var i in obj){		//this loop puts the obj keys and values into a string format with \n between them
+
+    retStr+= `${i}:${obj[i]}\n`;
+  }		// end of loop
+
+  retStr=retStr.split(""); retStr.pop(); retStr=retStr.join("");
+  return retStr;
+}
+
+console.log(countCharsBarGraph ("just a short text", 23) );
+/*-->
+	t:#######################
+    s:###########
+    a:#####
+    e:#####
+    h:#####
+    j:#####
+    o:#####
+    r:#####
+    u:#####
+    x:#####		*/
+
+  
