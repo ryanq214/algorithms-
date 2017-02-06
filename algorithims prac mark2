@@ -876,4 +876,88 @@ console.log(countCharsBarGraph ("just a short text", 23) );
     u:#####
     x:#####		*/
 
-  
+
+//I haven't fully figured out this code and it is very time consuming as a code so it needs improvement.  The next intery will be a shorter version i learn.
+
+//You will be given a two-dimensional array such as the one below.
+/*	a =[
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      ]			*/
+//Remove all even integers from each sub-array.
+//Sum the remaining odd integers of each sub-array.
+//Sum of odds ( a[0] = 1 + 3 + 5 + 7 + 9 ) = 25
+//Find the Least common multiple of the arrays.
+
+/*(25, 25, 25, 25, 25, 25, 25, 25, 25)
+  ^                                ^
+  |                                |
+ a[0]-----------------------------a[8]	*/
+//example : lcm( 25, 25, 25, 25, 25, 25, 25, 25, 25 ) = 25
+//example : lcm( 37, 29, 19, 38, 31, 28, 15, 24, 9 ) = 1592632440
+//Integers are between 0 and 9. Sub-array size is always 9. The number of sub-arrays varies between 9 and 18.
+
+function kiyoLcm(a) {
+  var r, d=0;
+  for (var i=0; i<a.length; i++){
+
+     a[i]= a[i].filter( function (c,i,a){ return (c %2 != 0 && typeof(c) === "number") } );  	// this line runs through each sub array and only returns elements that are odd numbers
+
+    if (a[i].length===0){  return 0}		// this checks if any of the elements left are empty arrays and if it is it returns 0.
+
+    if (a[i].length >=1) {		// this if statement adds up the sum of each of the sub-arrays as long as they have at least one element
+
+     a[i]= a[i].reduce(function ( t, c){ return t+=c} );
+    }		// end of if statement
+
+  }			// end of loop
+
+        // this starts the calculation of finding the LCM with the the a array. to do this i use the gcd function below
+  		// to find the lcm of two number i will be using the formula ( num1 *num2)/ gcd(num1, num2).
+  r= ( a[0] * a[1])/ gcd(a[0], a[1]);	// this sets the r var as the LCM of the first two elements of a to get r set for the loop.
+
+  for (var i=2; i<a.length; i++){		// this loop starts on the third elment of a because i already used the first two to make r.  each iteration r is set as num1 in the formula I am using.
+
+   r= ( r* a[i])/gcd( r, a[i]);
+  }		// end of loop
+
+  return r
+}
+
+function gcd (a,b){
+  var arr=[2,a], ar=[2,b], max;
+
+  if (a>b){ max=a}
+  else { max=b}		//these two lines check for whichever number is bigger between a and b and sets that as the max var.
+
+  for (var i=3; i<max/2; i++){		// this loop checks if i evenly divides into a/b and if it does then it pushes i into arr(a) / ar(b).
+
+    if (a%i===0){ arr.push(i)}
+    if (b%i===0){ ar.push(i)}
+  }			// end of loop
+  arr=arr.sort( function (a,b) { return b-a} );
+  ar=ar.sort( function (a,b) { return b-a} );// these two lines sorts the ar and arr arrays from biggest to smalles
+  for (var i=0; i<arr.length; i++){		// this loop checks if the arr element at index i is in ar.  And because the arrays are biggest to lowest the first number it finds that matches this is the biggest common divisor
+
+    if (ar.indexOf(arr[i])!=-1){ return arr[i]}
+  }// end of loop
+}
+
+console.log(kiyoLcm ([ [], [], [], [], [], [], [], [], [] ]));
+	//--> 0
+console.log(kiyoLcm ([  [9, 4, 5, 8, 0, 9, 1, 1, 3], [5, 0, 8, 5, 4, 3, 4, 5, 5], [9, 5, 1, 6, 7, 8, 8, 9, 5],
+     [9, 9, 7, 8, 6, 2, 0, 2, 9], [4, 7, 9, 3, 6, 6, 2, 6, 1], [0, 3, 5, 7, 0, 5, 1, 6, 2],
+     [7, 8, 4, 1, 0, 1, 6, 0, 0], [0, 2, 1, 8, 8, 7, 6, 0, 1], [4, 3, 5, 6, 5, 4, 0, 3, 6]   ]));
+		//-->1,970,640);
+console.log(kiyoLcm ([  [1, 1, 5, 4, 4, 2, 5, 1, 5], [4, 2, 3, 5, 1, 4, 4, 2, 5], [4, 2, 1, 4, 5, 5, 4, 3, 3],
+     [2, 1, 5, 1, 1, 1, 1, 2, 4], [5, 1, 3, 1, 3, 2, 4, 2, 1], [3, 1, 1, 2, 4, 2, 5, 3, 5],
+     [5, 2, 5, 3, 3, 4, 3, 4, 1], [3, 4, 4, 5, 5, 5, 5, 4, 5], [3, 3, 5, 5, 3, 3, 3, 5, 2]  ]));
+console.log( (25*25)/gcd(25,25));
+//-->21,420
