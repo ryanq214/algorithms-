@@ -988,3 +988,15 @@ console.log(balance("!!","??"))// === "Right"
 console.log(balance("!??","?!!"))// === "Left"
 console.log(balance("!?!!","?!?"))// === "Left"
 console.log(balance("!!???!????","??!!?!!!!!!!"))// === "Balance"
+
+//here is a shorter version of the funciton above using the reduce method.
+
+function balance(l,r){
+  l=[...l].reduce (function (t,c) { return t+= (c==="!"? 2 :3 )},0 );
+  r=[...r].reduce (function (t,c) { return t+= (c==="!"? 2 :3 )},0 );
+
+  if (l>r){ return "Left"}
+  if (l<r){ return "right"}
+  else { return "Balance"}
+
+}
