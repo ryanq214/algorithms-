@@ -1000,3 +1000,72 @@ function balance(l,r){
   else { return "Balance"}
 
 }
+
+
+// this challenge will be done in steps
+//You are given a string of n lines, each substring being n characters long: For example:
+//		s = "abcd\nefgh\nijkl\nmnop"	--	4 lines/ 4 letters in each line
+
+//We will study some transformations of this square of strings.
+/*  Symmetry with respect to the main cross diagonal: diag_2_sym (or diag2Sym or diag-2-sym)
+	   -diag_2_sym(s) => "plhd\nokgc\nnjfb\nmiea"
+			-->it basically adds a letter from each substring at (n) to each new sub string, then reverses the entire string
+            	--> so the last string has the first letters of each original subtring in reverse order  (m i e a)
+    Counterclockwise rotation 90 degrees: rot_90_counter (or rot90Counter or rot-90-counter)
+	    rot_90_counter(s)=> "dhlp\ncgko\nbfjn\naeim"
+			--> it adds a letter from each original substring at (n) into the new substrings, and reverses the order of the subtrings.
+            	-->it does the same thing as the last function without reversing the new substrings.
+    selfie_diag2_counterclock (or selfieDiag2Counterclock or selfie-diag2-counterclock) It is initial string + string obtained by symmetry with respect to the main cross diagonal + counterclockwise rotation 90 degrees .
+	    s = "abcd\nefgh\nijkl\nmnop" -->
+    	"abcd|plhd|dhlp (\n) efgh|okgc|cgko (\n) ijkl|njfb|bfjn (\n) mnop|miea|aeim"
+        		spaces added to make it easier to see.
+			--> it combines the original string with the strings made from the previous two function.
+            	--> the [0] substring of each is combined into one sperated by a |.
+
+		selfie_diag2_counterclock  printed with console log.
+              abcd|plhd|dhlp
+              efgh|okgc|cgko
+              ijkl|njfb|bfjn
+              mnop|miea|aeim			*/
+//Task:  Write these functions diag_2_sym, rot_90_counter, selfie_diag2_counterclock and
+// high-order function oper(fct, s) where
+//        fct is the function of one variable f to apply to the string s (fct will be one of diag_2_sym, rot_90_counter, selfie_diag2_counterclock)
+function diag2Sym(s) {
+    var r=[], string=""; s= s.split("\n")	// here i made an empty array to put my new substrings into, a string array to be the new subtrings, and I split up the given string (s) to make it easier to work with.
+
+  	for (var i=0; i<s.length; i++){		// this outer loop is to make the place of the new subtrings (in reverse order to how the answer is goint to be)
+
+      for (var d=s.length-1; d>=0; d--){	//this inner loop goes backward from the last subtring to the first adding a letter from each one at positon (i) to the string var.
+
+        string += s[d][i];
+      }		// end of inner loop
+
+      r[i]= string;
+      string="";	// these two lines are to add the string var to the r array and then reset string back to blank
+    }	// end of outer loop
+
+      r= r.reverse();	// here i flip the r array putting it in the right order for the answer.
+  return r.join("\n");
+}
+
+function rot90Counter(s) {
+    // your code
+}
+function selfieDiag2Counterclock(s) {
+    // your code
+}
+function oper(fct, s) {
+    // your code
+}
+
+
+var s = "abcd\nefgh\nijkl\nmnop";
+//oper(diag_2_sym, s) => "plhd\nokgc\nnjfb\nmiea"
+//oper(rot_90_counter, s) => "dhlp\ncgko\nbfjn\naeim"
+//oper(selfie_diag2_counterclock, s) => "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim"
+
+console.log(diag2Sym (s));
+		/*-->	plhd
+                okgc
+                njfb
+                miea		*/
