@@ -1014,7 +1014,7 @@ function balance(l,r){
     Counterclockwise rotation 90 degrees: rot_90_counter (or rot90Counter or rot-90-counter)
 	    rot_90_counter(s)=> "dhlp\ncgko\nbfjn\naeim"
 			--> it adds a letter from each original substring at (n) into the new substrings, and reverses the order of the subtrings.
-            	-->it does the same thing as the last function without reversing the new substrings.
+            	-->it does the same thing as the last function without reversing the new substrings themselves.
     selfie_diag2_counterclock (or selfieDiag2Counterclock or selfie-diag2-counterclock) It is initial string + string obtained by symmetry with respect to the main cross diagonal + counterclockwise rotation 90 degrees .
 	    s = "abcd\nefgh\nijkl\nmnop" -->
     	"abcd|plhd|dhlp (\n) efgh|okgc|cgko (\n) ijkl|njfb|bfjn (\n) mnop|miea|aeim"
@@ -1049,7 +1049,17 @@ function diag2Sym(s) {
 }
 
 function rot90Counter(s) {
-    // your code
+  // this function is the same as the one above except that the inner loop doesn't go backwards so the substrings themselves aren't reversed
+
+    var r=[], string=""; s=s.split("\n");
+  for (var i=0; i<s.length; i++){
+    for (var d=0; d<s.length; d++){
+      string += s[d][i];
+    }
+    r[i]=string;
+    string="";
+  }
+  return r.reverse().join("\n");
 }
 function selfieDiag2Counterclock(s) {
     // your code
@@ -1064,8 +1074,14 @@ var s = "abcd\nefgh\nijkl\nmnop";
 //oper(rot_90_counter, s) => "dhlp\ncgko\nbfjn\naeim"
 //oper(selfie_diag2_counterclock, s) => "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim"
 
+
 console.log(diag2Sym (s));
 		/*-->	plhd
                 okgc
                 njfb
                 miea		*/
+console.log( rot90Counter(s));
+	/*--"dhlp
+    	 cgko
+         bfjn
+         aeim"	*/
