@@ -1002,7 +1002,6 @@ function balance(l,r){
 }
 
 
-// this challenge will be done in steps
 //You are given a string of n lines, each substring being n characters long: For example:
 //		s = "abcd\nefgh\nijkl\nmnop"	--	4 lines/ 4 letters in each line
 
@@ -1017,7 +1016,7 @@ function balance(l,r){
             	-->it does the same thing as the last function without reversing the new substrings themselves.
     selfie_diag2_counterclock (or selfieDiag2Counterclock or selfie-diag2-counterclock) It is initial string + string obtained by symmetry with respect to the main cross diagonal + counterclockwise rotation 90 degrees .
 	    s = "abcd\nefgh\nijkl\nmnop" -->
-    	"abcd|plhd|dhlp (\n) efgh|okgc|cgko (\n) ijkl|njfb|bfjn (\n) mnop|miea|aeim"
+    	    "abcd|plhd|dhlp (\n) efgh|okgc|cgko (\n) ijkl|njfb|bfjn (\n) mnop|miea|aeim"
         		spaces added to make it easier to see.
 			--> it combines the original string with the strings made from the previous two function.
             	--> the [0] substring of each is combined into one sperated by a |.
@@ -1062,26 +1061,41 @@ function rot90Counter(s) {
   return r.reverse().join("\n");
 }
 function selfieDiag2Counterclock(s) {
-    // your code
+  	//this takes the result from the previous two funciton into two variables split into arrays.
+  var s1=diag2Sym(s).split("\n"), s2= rot90Counter(s).split("\n"),s=s.split("\n"), string="";
+
+  for (var i=0; i<s.length; i++){	// this loop adds the element at [i] from s, s1, and s2 into one line seperated by "|" and adds"\n" to the end of each line except the last
+
+    string =string+ s[i]+ "|" +s1[i] +"|" + s2[i];
+    if (i<s.length-1){ string +="\n" }
+  }		// end of loop
+
+  return string
 }
+
 function oper(fct, s) {
-    // your code
+    return fct(s);
 }
 
 
 var s = "abcd\nefgh\nijkl\nmnop";
 //oper(diag_2_sym, s) => "plhd\nokgc\nnjfb\nmiea"
 //oper(rot_90_counter, s) => "dhlp\ncgko\nbfjn\naeim"
-//oper(selfie_diag2_counterclock, s) => "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim"
+console.log(oper(selfieDiag2Counterclock, s))// => "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim"
 
 
-console.log(diag2Sym (s));
+//console.log(diag2Sym (s));
 		/*-->	plhd
                 okgc
                 njfb
                 miea		*/
-console.log( rot90Counter(s));
+//console.log( rot90Counter(s));
 	/*--"dhlp
     	 cgko
          bfjn
          aeim"	*/
+//console.log(selfieDiag2Counterclock(s));
+		/*-->	abcd|plhd|dhlp
+                efgh|okgc|cgko
+                ijkl|njfb|bfjn
+                mnop|miea|aeim	*/
