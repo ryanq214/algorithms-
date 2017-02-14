@@ -1099,3 +1099,30 @@ console.log(oper(selfieDiag2Counterclock, s))// => "abcd|plhd|dhlp\nefgh|okgc|cg
                 efgh|okgc|cgko
                 ijkl|njfb|bfjn
                 mnop|miea|aeim	*/
+
+
+//Teemo has a really big passion about programming and he want's to be productive till midnight. He want's to know how many minutes he has left to work on his new project.
+//He doesn't want to look on the clock all the time, so he thought about a function, which returns him the number of minutes.
+//Can you write him a function, so he can stay productive?
+//The function will take a date object as parameter. Return the number of minutes in the following format:
+	//"x minute(s)"
+//You will always get a date object with of today with a random timestamp.
+//You have to round the number of minutes.
+//Milliseconds doesn't matter!
+var dat = new Date(new Date().setHours(23,0,50,0));
+
+function minutesToMidnight(d){
+  var h=d.getHours(), m=d.getMinutes(), s=d.getSeconds(), t=0;
+  if (h<12){ h+=12; t += (12*60)}
+  while (h<23){
+    t+=60;  h+=1;
+  }
+  t+= (60-m);
+  if (s!=0 && s>30){ t-=1}
+  
+  if (t===1){ return `${t} minute`}
+  return `${t} minutes`
+}
+
+console.log(minutesToMidnight(new Date(new Date().setHours(10,0,0,0))));// => "840 minutes"
+console.log(minutesToMidnight(new Date(new Date().setHours(23,59,0,0)))); // => "1 minute"
