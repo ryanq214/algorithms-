@@ -1170,3 +1170,21 @@ console.log(mutuallyExclusive([[1,0.1],[2,0.14],[3,0.16],[4,0.2],[5,0.15],[6,.25
 	//--> 0.30.toFixed(2), "Check the sum of probabilities for rolling 1 and 4 - expected 0.30")
 console.log(mutuallyExclusive([[1,0.6],[2,0.1001],[3,0.0999],[4,0.1],[5,0.05],[6,0.05]], 3, 4));
 	//-->0.20.toFixed(2), "Check the sum of probabilities for rolling 3 and 4 - expected 0.20")
+
+
+//Given a string, return a new string that has transformed based on the input:
+//  Change case of every character, ie. lower case to upper case, upper case to lower case.
+//  Reverse the order of words from the input.
+//	You may assume the input only contain English alphabet and spaces.
+//example:
+//		stringTransformer('Example Input')should return 'iNPUT eXAMPLE'
+
+function stringTransformer(str) {
+  str=str.split(" ").reverse().join(" ").split("");   // this line turns the string into an array to reverse the order, puts it back into a string and then splits it back into an array by each individual element.
+
+  return str.map( function (c,i,a) { (c===c.toUpperCase() ) ? c= c.toLowerCase() : c= c.toUpperCase();   return c;  } ).join("");		// this returns a string joined from a new array that switched the case of each letter.
+
+}
+
+console.log(stringTransformer ("Example Input"));
+	//-->'iNPUT eXAMPLE'
