@@ -1189,7 +1189,6 @@ function stringTransformer(str) {
 console.log(stringTransformer ("Example Input"));
 	//-->'iNPUT eXAMPLE'
 
-// still in progress
 //RoboScript #1 - Implement Syntax Highlighting
 //Story
 //You are a computer scientist and engineer who has recently founded a firm which sells a toy product called MyRobot
@@ -1219,17 +1218,20 @@ console.log(stringTransformer ("Example Input"));
 //For example:
 function highlight(code) {
   var hl={ F:"<span style=\"color: pink\">", L:"<span style=\"color: red\">", R:"<span style=\"color: green\">", num:"<span style=\"color: orange\">", end:"</span>" },
-  c=code.split(""), arr=[], s="", other=["F", "L", "R", "(", ")"];
+  c=code.split(""), arr=[], s="", other=["0","1", "2","3","4","5","6","7","8","9"];
 
-  for (var i=0; i<=c.length; i++){
+  for (var i=0; i<c.length; i++){
     s= c[i];
-    if (i=== c.length-1){ arr.push(c[i])};
+    if (c[i]==="(" || c[i]===")"){ arr.push(c[i]); continue;}		// this line checks if the character is a ( or ) in which case it adds it directly to arr and skips the inner loop.
+
+    if (i=== c.length-1){ arr.push(c[i]); continue;};
+
     for (var d=i; d<c.length; d++){
-      if (c[d].match(/[0123456789]/gi) && other.indexOf(c[d+1]) ===-1  )  { s+=c[d+1] ;}		// this checks if the character is a number and if the next character is a number (by checking if it is anything else) and if they are both then it adds them together in s.
+      if ( other.indexOf(c[d])!=-1 && other.indexOf(c[d+1]) !=-1  )  { s+=c[d+1] }		// this checks if the character is a number and if the next character is a number (by checking if it is anything else) and if they are both then it adds them together in s.
 
       else if (c[d]=== c[d+1]){ s+= c[d+1];  }// this checks if the character and the one after it are the same.  If they are then i combine them into s.
 
-      else { arr.push(s); break}	//if the character is not the same as the next, or they are both not numbers, then it adds the current s to the arr array and breaks the inner loop.
+      else  { arr.push(s); break}	//if the character is not the same as the next, or they are both not numbers, then it adds the current s to the arr array and breaks the inner loop.
     }		// end of inner loop
 
     i=d;		// this sets i equal to d to skip the characters that d already checked
@@ -1237,7 +1239,7 @@ function highlight(code) {
   s="";
 
   for (var i=0; i<arr.length; i++){
-
+    if ( arr[i][0].match(/[()]/gi) ){ s+= arr[i]; continue}
 	if ( (arr[i][0]).match(/[0-9]/gi) ){ s+= hl.num + arr[i] + hl.end}
     else { s+= hl[arr[i][0]] + arr[i] + hl.end};
   }
@@ -1248,4 +1250,4 @@ console.log(highlight("F3RF5LF7"));
   			// => "<span style=\"color: pink\">F</span><span style=\"color: orange\">3</span><span style=\"color: green\">R</span><span style=\"color: pink\">F</span><span style=\"color: orange\">5</span><span style=\"color: red\">L</span><span style=\"color: pink\">F</span><span style=\"color: orange\">7</span>"
 
 console.log(highlight("FFFR345F2LL"));
-			// => "<span style=\"color: pink\">FFF</span><span style=\"color: green\">R</span><span style=\"color: orange\">345</span><span style=\"color: pink\">F</span><span style=\"color: orange\">2</span><span style=\"color: red\">LL</span>"
+// => "<span style=\"color: pink\">FFF</span><span style=\"color: green\">R</span><span style=\"color: orange\">345</span><span style=\"color: pink\">F</span><span style=\"color: orange\">2</span><span style=\"color: red\">LL</span>"
