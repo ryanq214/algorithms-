@@ -1251,3 +1251,15 @@ console.log(highlight("F3RF5LF7"));
 
 console.log(highlight("FFFR345F2LL"));
 // => "<span style=\"color: pink\">FFF</span><span style=\"color: green\">R</span><span style=\"color: orange\">345</span><span style=\"color: pink\">F</span><span style=\"color: orange\">2</span><span style=\"color: red\">LL</span>"
+
+
+//this is my new answer to the challenge above using reg ex
+function highlight(code) {
+  var hl={ F:"", L:"", R:"", num:"", end:"</span>" },
+  c=code.split("");
+  code=code.replace(/(F+)/g, `<span style=\"color: pink\">$1</span>`).
+  	replace(/(L+)/g, `<span style=\"color: red\">$1</span>`).
+  	replace(/(R+)/g, `<span style=\"color: green\">$1</span>`).
+  	replace(/(\d+)/g, `<span style=\"color: orange\">$1</span>`);
+  return code;
+}
