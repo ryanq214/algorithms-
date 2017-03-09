@@ -1263,3 +1263,32 @@ function highlight(code) {
   	replace(/(\d+)/g, `<span style=\"color: orange\">$1</span>`);
   return code;
 }
+
+
+//Write a function that receives two strings and returns n, where n is equal to the number of characters we should shift the first string forward to match the second.
+//For instance, take the strings "fatigue" and "tiguefa". In this case, the first string has been rotated 5 characters forward to produce the second string, so 5 would be returned.
+//If the second string isn't a valid rotation of the first string, the method returns -1.
+
+function shiftedDiff(s1, s2){
+  var t=0, arr=[], temp; s2=s2.split("");
+
+  for (var i=0; i<s2.length; i++){		// this loop is to shift (or rotate) the s2 string until it matches s1 if it can.
+
+    if (s1===s2.join("") ){ return t};		// this is to check if s1 and s2 equal each other, if it does then I return t (total)
+
+    temp=s2[0];
+    s2.shift();
+    s2.push(temp);
+    t+=1;				// these lines are to first make temp equal the first element in the current, shift that first element out of s2, push that element into the back of s2 using temp, and then add 1 to t.
+
+  }		// end of loop
+
+  return -1;		// if the loop does not return t, then s1 and s2 will never match and i return -1.
+}
+
+console.log(shiftedDiff("coffee", "eecoff"));// => 2
+console.log(shiftedDiff("eecoff", "coffee"));// => 4
+console.log(shiftedDiff("moose", "Moose"));// => -1
+console.log(shiftedDiff("isn't", "'tisn"));// => 2
+console.log(shiftedDiff("Esham", "Esham"));// => 0
+console.log(shiftedDiff("dog", "god"));// => -1
