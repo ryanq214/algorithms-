@@ -1292,3 +1292,10 @@ console.log(shiftedDiff("moose", "Moose"));// => -1
 console.log(shiftedDiff("isn't", "'tisn"));// => 2
 console.log(shiftedDiff("Esham", "Esham"));// => 0
 console.log(shiftedDiff("dog", "god"));// => -1
+
+
+//  here is a better answer to the challenge above.
+function shiftedDiff(first, second) {
+  if (first.length != second.length) return -1
+  return (second + second).indexOf(first)
+}
