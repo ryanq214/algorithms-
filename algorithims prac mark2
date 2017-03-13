@@ -1299,3 +1299,45 @@ function shiftedDiff(first, second) {
   if (first.length != second.length) return -1
   return (second + second).indexOf(first)
 }
+
+
+//Extend the array object with a function to return all elements of that array, except the ones with the indexes passed in the parameter.
+/*For example:
+	var array = ['a', 'b', 'c', 'd', 'e'];
+	var array2 = array.except([1,3]);
+	// array2 should contain ['a', 'c', 'e'];
+
+The function should accept both array as parameter but also a single integer, like this:
+	var array = ['a', 'b', 'c', 'd', 'e'];
+	var array2 = array.except(1);
+	// array2 should contain ['a', 'c', 'd', 'e'];		*/
+
+Array.prototype.except = function(num){
+  var arr=this, ar=[];
+
+	if (typeof (num) ==="object" ) {		// this if statement is for the num given that are in an array.  it runs a loop that pushes all of the elements into the ar array except for the ones at the index's in num.
+
+      for (var i=0; i<arr.length; i++) {
+           if ( num.indexOf(i)!= -1) { continue;}
+      	ar.push(arr[i]);
+    }	//end of loop
+
+  	return ar;
+	}		//if statement end
+
+   else if ( typeof (num) ==="number" ){		// this if statement is for the num's given that are single numbers.  It does the same of the if statement above, running it through a loop passing all of the elements except the one at index num.
+
+     for (var i=0; i<arr.length; i++){
+       if (i===num){ continue; }
+       ar.push( arr[i]);
+     }		// end of loop
+
+     return ar;
+   }  	// end of if statment
+}
+
+var array = ['a', 'b', 'c', 'd', 'e'];
+
+console.log(array.except([1,3]) );//, -->['a', 'c', 'e']);
+console.log(array.except(1)); //, 	  -->['a', 'c', 'd', 'e']);
+console.log(array.except(0) );//,	  -->['b', 'c', 'd', 'e']);
