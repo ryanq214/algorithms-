@@ -1373,8 +1373,8 @@ Hint: Use Bitwise ANDing
 
 
 function Allergies(score){
-  if (Number.isInteger(score) != true ) {  return "error"
-  }
+if (Number.isInteger(score)!= true) { throw new Error('Allergy score must be an integer value'); }
+
 
   var arr=[], temp;
 
@@ -1422,4 +1422,3 @@ console.log(new Allergies(260).allergies());//, ["shellfish"]);
 console.log(allergies.isAllergicTo("eggs"));		//, true);
 console.log(allergies.isAllergicTo("shellfish"));	//, true);
 console.log(allergies.isAllergicTo("strawberries"));	//, false);
-	
