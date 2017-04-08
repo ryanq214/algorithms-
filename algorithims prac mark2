@@ -1505,3 +1505,39 @@ function sumOfRegularNumbers(arr) {
 console.log(sumOfRegularNumbers([54, 70, 86, 1, -2, -5, 0, 5, 78, 145, 212, 15]))	//--> 639.
 console.log(sumOfRegularNumbers([7, 2, 3, 2, -2, 400, 802]))	//-->1200
 console.log(sumOfRegularNumbers([7, 2, -3, 3, 9, 15]))		//-->30)
+
+
+//In the morning all the doors in the school are closed. The school is quite big: there are N doors. Then pupils start coming. It might be hard to believe, but all of them want to study! Also, there are exactly N children studying in this school, and they come one by one.
+//When these strange children pass by some doors they change their status (i.e. Open -> Closed, Closed -> Open). Each student has their number, and each i-th student alters the status of every i-th door. For example: when the first child comes to the schools, he changes every first door (he opens all of them). The second one changes the status of every second door (he closes some doors: the 2nd, the 4th and so on). Finally, when the last one – the n-th – comes to the school, he changes the status of each n-th door (there's only one such door, though).
+//You need to count how many doors are left opened after all the students have come.
+/*	Example:
+	O=open, C=closed
+  doors    		C C C C C
+  1st student	O O O O O
+  2nd student   O C O C O
+  3rd student   O C C C O
+  4th student   O C C O O
+  5th studetn   O C C O C		*/
+
+//Input:	n – the number of doors and students, n ∈ N, n ∈ [1, 100000]
+	//doors(5) 		Should return   2
+
+function doors(n){
+  var arr=[];
+  arr="c".repeat(n).split("");		// this line makes an array with n number of c's (closed doors)
+
+  for (var i=1; i<n; i++){		// this loop is to change the value of the 'doors' each time a student comes through
+
+    for (var d=i; d<=n; d+=i){		// this loop is increamented by the value of i each time and after each incremenet it changes the value of the array element at that index.
+
+      if (arr[d]==="c"){ arr[d]= "o";}
+      else { arr[d]= "c" }
+    }		// end of inner loop;
+  }			// end of outer loop
+
+  return arr.filter(function(c,i) {return c==="o" } ).length;		// this filters the array into a new one with only the values of o (open doors) and then returns the length;
+}
+
+console.log(doors(5));  //-->2
+console.log(doors(10)); //--> 3);
+console.log(doors(100));//--> 10);
