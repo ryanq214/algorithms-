@@ -1541,3 +1541,45 @@ function doors(n){
 console.log(doors(5));  //-->2
 console.log(doors(10)); //--> 3);
 console.log(doors(100));//--> 10);
+
+
+still in progess
+//We have a N×N matrix (N<10) and a robot.
+//We wrote in each point of matrix x and y coordinates of a point of matrix.
+//When the robot goes to a point of matrix, read x and y and transfer to that point with x and y coordinates.
+//We want to compute the number of points that the robot, after k moves, returns to starting point.(If the robot returns to the same point after k moves then that point adds to the result)
+//You should stop counting moves as soon as the robot returns to the starting point. That is, if the robot returns to the starting point in fewer than k moves, that point should not count as a valid point.
+//example
+/*      For:
+      matrix=[
+        ["0,1","0,0","1,2"],
+        ["1,1","1,0","0,2"],
+        ["2,1","2,0","0,0"]]
+      k= 2
+The result should be 8
+
+Robot start at (0,0) --> (0,1) --> (0,0), total 2 moves
+Robot start at (0,1) --> (0,0) --> (0,1), total 2 moves
+Robot start at (0,2) --> (1,2) --> (0,2), total 2 moves
+Robot start at (1,2) --> (0,2) --> (1,2), total 2 moves
+Robot start at (1,0) --> (1,1) --> (1,0), total 2 moves
+Robot start at (1,1) --> (1,0) --> (1,1), total 2 moves
+Robot start at (2,0) --> (2,1) --> (2,0), total 2 moves
+Robot start at (2,1) --> (2,0) --> (2,1), total 2 moves
+Robot start at (2,2) --> (0,0) --> (0,1) --> (0,0) --> (0,1) ....
+(Robot can not transfer back to 2,2)
+
+So the result is 8.	*/
+//Input/Output
+//n x n matrix. 3 <= n <=9
+//integer k
+//2 <= k <= 5
+
+function robotTransfer(arr, k) {
+  var result=0;
+
+}
+
+console.log(robotTransfer([ ["0,1","0,0","1,2"], ["1,1","1,0","0,2"],
+                           ["2,1","2,0","0,0"] ], 2) )//-->8)
+console.log(robotTransfer([  ["0,1","0,0"],   ["1,1","1,0"] ] ,2))  //-->4)
