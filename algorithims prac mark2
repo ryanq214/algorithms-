@@ -1543,7 +1543,6 @@ console.log(doors(10)); //--> 3);
 console.log(doors(100));//--> 10);
 
 
-still in progess
 //We have a N×N matrix (N<10) and a robot.
 //We wrote in each point of matrix x and y coordinates of a point of matrix.
 //When the robot goes to a point of matrix, read x and y and transfer to that point with x and y coordinates.
@@ -1576,30 +1575,36 @@ So the result is 8.	*/
 //2 <= k <= 5
 
 function robotTransfer(arr, k) {
-  var r=0, l, c=1, ar=[], temp,  last;
-  for (var i=0; i<arr.length; i++){
-    for (var d=0; d<arr[0].length; d++){
-      l=arr[i][d];
-      while (c<=k){
-        last=l;
-        l=arr[ l[0] ][ l[2] ];
-        if (l===arr[i][d] && c!= k){temp=true; break;}
-        c+=1;
+  var r=0, l, c=1,temp, last;
+  for (var i=0; i<arr.length; i++){		// this outter loop is going to control the change of the inner arrays
+    for (var d=0; d<arr[0].length; d++){		// this inner loop will change the element that is the starting point in the inner arrays
+
+      l=arr[i][d]; 		// i set l (location) equal to the element
+
+      while (c<=k){		// this while loop is to run through the 'teleportations' from move to move
+
+        last=l;			// I set the last var equal to L.  THis is to at the end of the while loop it will equal the second to last location of L.  this is to text and make sure that the final place L lands on is the same index that is started on and not a different index with the same value as in some matrixes
+
+        l=arr[ l[0] ][ l[2] ];		// in each iteration of the while loop I change the l var to the new location value;
+
+        if (l===arr[i][d] && last==[i,d]){ r += (c===k); break;}		// this is to test: first if L is equal to the value of the point it started at.  Second that the index is the same as the actual starting point.  and third that c (count) is equal to k (steps) and that L did not get to the starting value early.  To test that last part I increment the r var (result) by (c===k) so if c is equal to K then it will be true which has a value of 1, if it's not it will not increase r.
+
+        c+=1;		// here i increment c by 1 for the next run of the while loop
       }		// end of while loop
-     // if (i===2 && d===2){return last;}
-      if (temp===true) { temp=false; break}
-      if (l===arr[i][d]  && last==[i,d] ){  r+=1}
-      c=1;
+
+      c=1;		// here i set C back to 1 for the next element to go through the while loop
+
     }		// end of inner loop
   }		//end of outter loop
-	return r;
+	return r
 }
 
 console.log(robotTransfer([ ["0,1","0,0","1,2"], ["1,1","1,0","0,2"],
-                           ["2,1","2,0","0,0"] ], 2) )//-->8)
+                           				["2,1","2,0","0,0"] ], 2) )//-->8)
 console.log(robotTransfer([  ["0,1","0,0"],   ["1,1","1,0"] ] ,2))  //-->4)
 
-console.log(robotTransfer( [ ["6,2","2,1","2,3","3,4","4,6","3,1","5,5"],
+console.log(robotTransfer( [
+["6,2","2,1","2,3","3,4","4,6","3,1","5,5"],
 ["6,6","3,2","5,2","1,2","4,6","2,3","1,2"],
 ["1,4","2,2","5,4","0,2","1,1","6,2","2,2"],
 ["4,3","2,3","5,5","0,4","6,5","5,6","3,4"],
