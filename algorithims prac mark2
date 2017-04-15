@@ -1665,3 +1665,85 @@ console.log(foldArray([ 1, 2, 3, 4, 5 ], 1)); 		//-->[ 6, 6, 3 ];
 console.log(foldArray([ 1, 2, 3, 4, 5 ], 2)); 		//-->[ 9, 6 ];
 console.log(foldArray([ 1, 2, 3, 4, 5 ], 3)); 		//-->[15]
 console.log(foldArray([ -9, 9, -8,   8, 66, 23 ], 1));	//-->[ 14, 75, 0 ];
+
+still in progress
+I have got the P working now i need to get the O
+//You have been hired by a company making electric garage doors. Accidents with the present product line have resulted in numerous damaged cars, broken limbs and several killed pets. Your mission is to write a safer version of their controller software.
+//Specification
+//We always start with a closed door. The remote control has exactly one button, with the following behaviour.
+/*  If the door is closed, a push starts opening the door, and vice-versa
+    It takes 5 seconds for the door to open or close completely
+    While the door is moving, one push pauses movement, another push resumes movement in the same direction
+In order to make the door safer, it has been equiped with resistance-based obstacle detection.
+When the door detects an obstacle, it must immediately reverse the direction of movement.
+
+Input
+A string where each character represents one second, with the following possible values.
+    '.' No event
+    'P' Button has been pressed
+    'O' Obstacle has been detected (supersedes P)
+
+As an example, '..P....' means that nothing happens for two seconds, then the button is pressed, then no further events.
+
+Output
+A string where each character represents one second and indicates the position of the door (0 if fully closed and 5 fully open). The door starts moving immediately, hence its position changes at the same second as the event.
+Example									 P...O
+	..P...O..... as input should yield 001234321000 as output		*/
+
+function door(e) {
+  var s=[], c=0, dif='n', last;
+
+  for (var i=0; i<e.length; i++){
+    if (e[i]==="P") {
+      if (dif==='s'){
+        if 		(last='p'){ dif='p'; c+=1;  s.push(c.toString() );  }
+        else if (last='n'){ dif='n'; c-=1; s.push(c.toString() ); }
+      }
+      //if (c===0 || c==
+      else if (dif='n' && c===0  ){ dif='p'; c+=1; s.push(c.toString() ) }
+      else if (dif='p' && c===5 ){ dif='n'; c-=1; s.push(c.toString() ) }		// i might need to check if the current number is not 0 going down or 5 going up but i don't think it will be a problem
+
+      else if (dif!='s'	){ last=dif; dif='s'; s.push(c.toString() );   }
+
+      continue;
+    }
+
+
+
+    else if (e[i]==="."){
+      if (dif==='p'){
+        if(c<5){ c+=1; s.push(c.toString() ) }
+        else if (c===5){ s.push(c.toString() ) }
+
+      }
+      else if (dif==='n'){
+        if (c>0){ c-=1; s.push(c.toString() )}
+        else if (c===0) { s.push(c.toString() ) }
+      }
+      else if( dif==='s'){	s.push(c.toString() ); }
+
+      continue;
+    }
+
+    else if (e[i]==='O'){
+      if (dif='n'){ dif='p'; c+=1;  s.push(c.toString() ) }
+      else if (dif='p'){ dif='n'; c-=1; s.push(c.toString() ) }
+      continue;
+    }
+
+  }	// end of loop
+
+  return s.join("");
+
+}
+console.log(door('P....'+'.'.repeat(10))) //-->'12345'+'5'.repeat(10));
+	//should open completely and stay open
+console.log(door('P......P......'));// -->12345554321000');
+	//			  12345554321000
+	//should open completely, then stay open, then close
+console.log(door('P.P.P....')); //-->122234555');
+  	//should resume opening on third buttonpress
+console.log(door('P..OP..P..')) //-->'1232222100');
+	//should reverse while opening (and allow pause)
+console.log(door('..P...O.....'))  //-->'001234321000');
+	//should start opening and reverse when obstacle
