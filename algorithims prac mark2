@@ -1,4 +1,4 @@
-
+com
 //this is similar to another street fighter selection challenge that i have done but this one is harder.  the fighter selection grid will be different each time and there will be less fighters in some of the rows(arrays)
 //here is an example:The first character of the first row (Ryu) is not aligned with the first of the second row (Balrog) but with the second (Ken) and the same goes with the other side; therefore we need to introduce something new, like an offset: the Empty Space.
 //The empty space, represented as empty string "", will allow us to keep the grid aligned and rectangular, with spaces that won't be selectable. In this case we need 2 empty spaces (3 rows x 6 columns = 18 slots, 18 slots - 16 characters = 2 empty spaces). Like this:
@@ -1619,3 +1619,49 @@ console.log(robotTransfer( [ ["4,5","1,4","2,1","4,3","3,4","2,1"],
 ["1,4","0,5","1,5","1,2","2,3","5,5"],
 ["1,4","4,0","3,3","1,0","4,3","1,5"],
 ["4,3","1,5","5,3","0,0","0,5","0,4"] ], k = 3 )) //--> 0;
+
+
+//Fold an array
+//In this kata you have to write a method that folds a given array of integers by the middle x-times.
+//An example says more than thousand words:
+/*	Fold 1-times:
+	[1,2,3,4,5] -> [6,6,3]	*/
+//A little visualization (NOT for the algorithm but for the idea of folding):
+/*
+ Step 1         Step 2        Step 3       Step 4       Step5
+                     5/           5|         5\
+                    4/            4|          4\
+1 2 3 4 5      1 2 3/         1 2 3|       1 2 3\       6 6 3
+----*----      ----*          ----*        ----*        ----*
+
+Fold 2-times:
+[1,2,3,4,5] -> [9,6]		*/
+
+//As you see, if the count of numbers is odd, the middle number will stay. Otherwise the fold-point is between the middle-numbers, so all numbers would be added in a way.
+//The array will always contain numbers and will never be null. The parameter runs will always be a positive integer greater than 0 and says how many runs of folding your method has to do.
+//If an array with one element is folded, it stays as the same array.
+//The input array should not be modified!
+function foldArray(arr, runs){
+  var ar=arr, array=[];
+  for (var c=0; c<runs; c++){		// this outter loop is to run the inner loop or fold the array the right number of runs.
+
+    for (var i=0, d=ar.length-1; i<Math.floor(ar.length/2); i++, d--){		// this inner aray is to fold the ar array but having the i var increasing and the d var decreasing starting from the last element.  the loop will stop when the i var is equal to the half way index number.
+
+      array.push(ar[i] + ar[d]);
+    }		// end of inner loop
+
+    if (ar.length % 2 !=0){array.push(ar[Math.floor(ar.length/2)] ) };		// this if statement runs if the number of elements at the start of the fold is odd and if it is then it pushes that middle element into the array array, because it will be missed in the actual fold.
+
+    ar=array;
+    array=[];		// in these two lines i set ar equal to the new array and set array back to an empty array to run the loop again if needed.
+
+  }		// end of outter loop;
+
+  return ar;
+
+}
+
+console.log(foldArray([ 1, 2, 3, 4, 5 ], 1)); 		//-->[ 6, 6, 3 ];
+console.log(foldArray([ 1, 2, 3, 4, 5 ], 2)); 		//-->[ 9, 6 ];
+console.log(foldArray([ 1, 2, 3, 4, 5 ], 3)); 		//-->[15]
+console.log(foldArray([ -9, 9, -8,   8, 66, 23 ], 1));	//-->[ 14, 75, 0 ];
