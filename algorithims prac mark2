@@ -1666,8 +1666,8 @@ console.log(foldArray([ 1, 2, 3, 4, 5 ], 2)); 		//-->[ 9, 6 ];
 console.log(foldArray([ 1, 2, 3, 4, 5 ], 3)); 		//-->[15]
 console.log(foldArray([ -9, 9, -8,   8, 66, 23 ], 1));	//-->[ 14, 75, 0 ];
 
-still in progress
-I have got the P working now i need to get the O
+
+//I have got the P working now i need to get the O
 //You have been hired by a company making electric garage doors. Accidents with the present product line have resulted in numerous damaged cars, broken limbs and several killed pets. Your mission is to write a safer version of their controller software.
 //Specification
 //We always start with a closed door. The remote control has exactly one button, with the following behaviour.
@@ -1691,45 +1691,50 @@ Example									 P...O
 	..P...O..... as input should yield 001234321000 as output		*/
 
 function door(e) {
-  var s=[], c=0, dif='n', last;
+  var s=[], c=0, dif='n', last;			// for this challenge i created four variables.  S is the array i will push the number into and then joint to return as the answer.  C (count) is the number that the door is at acoording the event that have.  Dif (difference) will be the difference in the count and can be three thing:  P for positing this is the door oppening and the count increasing,  N is negative for the door closing and the count decreasing, S is stadby and this will be when the button is pressed again and freezes the door, as long as the door is on standby the count won't change.  the variable Last will be used to equal the dif var when it is changed to s so when it is changed back i will know what is was.
 
-  for (var i=0; i<e.length; i++){
-    if (e[i]==="P") {
-      if (dif==='s'){
-        if 		(last='p'){ dif='p'; c+=1;  s.push(c.toString() );  }
-        else if (last='n'){ dif='n'; c-=1; s.push(c.toString() ); }
-      }
-      //if (c===0 || c==
-      else if (dif='n' && c===0  ){ dif='p'; c+=1; s.push(c.toString() ) }
-      else if (dif='p' && c===5 ){ dif='n'; c-=1; s.push(c.toString() ) }		// i might need to check if the current number is not 0 going down or 5 going up but i don't think it will be a problem
+  for (var i=0; i<e.length; i++){		// this for loop will run through each element and run the if statmenet below for the appropriate case
 
-      else if (dif!='s'	){ last=dif; dif='s'; s.push(c.toString() );   }
+    if (e[i]==="P") {		// this if statement is in the case that the element equals 'P'
 
+        if (dif==='s'){
+          if 		(last==='p'){ dif='p'; c+=1;  s.push(c.toString() );  }
+          else if (last==='n'){ dif='n'; c-=1; s.push(c.toString() ); }
+        }		// this first inner if statement is if the diff is equal to S or standby which will happen if the door is already frozen and then resumes moving.  in which cas i will make the diff var equal what it was previously (using the var last) and then adjust the count var accordingly.
+
+        else if (dif==='n' && c===0  ){ dif='p'; c+=1; s.push(c.toString() ) }
+        else if (dif==='p' && c===5 ){ dif='n'; c-=1; s.push(c.toString() ) }		// these two cases are in case the button is pressed and the door is completely closed or open which you can tell by the count.  then i will change the diff var and start adjusting the count accordingly
+
+        else if (dif!='s'	){ last=dif; dif='s'; s.push(c.toString() );   }		// this case will only be reached in the case that the button is pressed and the door has to freeze mid way in either direction.  here i make last equal the current diff then i make diff equal s or standby.
+
+        continue;
+    }		// if (P case) statement end
+
+    else if (e[i]==="."){			// this if statement is for when the element is a '.' meaning no event happens and the door either continues along its current path or remains where it is if it was stationary
+
+        if (dif==='p'){				// this is for the case that the door is opening or open
+
+          if(c<5){ c+=1; s.push(c.toString() ) }
+          else if (c===5){ s.push(c.toString() ) }
+        }			// these two inner if statements check if the count was already 5 which is fully open or not.  if it is fully open then it just keeps pushing 5 into the s array otherwise it increases c by 1 and then pushes it into s
+
+        else if (dif==='n'){		// this is for  when the door is closing or closed
+
+          if (c>0){ c-=1; s.push(c.toString() )}
+          else if (c===0) { s.push(c.toString() ) }
+        }			// these two inner if statements do the same as the two inner if statemnets in the if statement above
+
+        else if( dif==='s'){	s.push(c.toString() ); }		// this is for when the door is on standby in which case it just keeps pushing the same number into s
+
+        continue;
+    }			// if (. case) statement end
+
+    else if (e[i]==='O'){		// this is for when the element equals "O" which means an object was deteced and the door changes direction if it is moving
+
+      if 	  (dif==='n'){ dif='p'; c+=1;  s.push(c.toString() ) }
+      else if (dif==='p'){ dif='n'; c-=1;  s.push(c.toString() ) }
       continue;
-    }
-
-
-
-    else if (e[i]==="."){
-      if (dif==='p'){
-        if(c<5){ c+=1; s.push(c.toString() ) }
-        else if (c===5){ s.push(c.toString() ) }
-
-      }
-      else if (dif==='n'){
-        if (c>0){ c-=1; s.push(c.toString() )}
-        else if (c===0) { s.push(c.toString() ) }
-      }
-      else if( dif==='s'){	s.push(c.toString() ); }
-
-      continue;
-    }
-
-    else if (e[i]==='O'){
-      if (dif='n'){ dif='p'; c+=1;  s.push(c.toString() ) }
-      else if (dif='p'){ dif='n'; c-=1; s.push(c.toString() ) }
-      continue;
-    }
+    }		// if (O case) satement end
 
   }	// end of loop
 
