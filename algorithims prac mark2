@@ -1752,3 +1752,63 @@ console.log(door('P..OP..P..')) //-->'1232222100');
 	//should reverse while opening (and allow pause)
 console.log(door('..P...O.....'))  //-->'001234321000');
 	//should start opening and reverse when obstacle
+
+
+/*To prepare his students for an upcoming game, the sports coach decides to try some new training drills. To begin with, he lines them up and starts with the following warm-up exercise:
+      when the coach says 'L', he instructs the students to turn to the left.
+      Alternatively, when he says 'R', they should turn to the right.
+      Finally, when the coach says 'A', the students should turn around.
+
+Unfortunately some students (not all of them, but at least one) can't tell left from right, meaning they always turn right when they hear 'L' and left when they hear 'R'. The coach wants to know how many times the students end up facing the same direction.
+Given the list of commands the coach has given, count the number of such commands after which the students will be facing the same direction.
+	Example
+		For commands = "LLARL", the output should be 3.
+Let's say that there are 4 students, and the second one can't tell left from right. In this case, only after the second, third and fifth commands will the students face the same direction.
+Input/Output
+    [input] string commands
+    String consisting of characters 'L', 'R' and 'A' only.
+    Constraints: 0 ≤ commands.length ≤ 35
+    [output] an integer
+    The number of commands after which students face the same direction.	*/
+
+function lineUp(c) {
+	var ar=[], swi={ 1:3, 2:4, 3:1, 4:2}, s1=1, s2=1, t=0;
+
+  for (var i=0; i<c.length; i++){
+
+    if(c[i]==="L"){ 		// this if statement is for when the element is an "L" it adds 1 to s1 and subtracts 1 from s2.  But first it checks that the s1 and s2 var aren't at the end of their turning direction based on numbers (such as s1 being at 4 and  needing to go to 1 and not 5) then i change it back to the start of that circle of directions
+
+      if (s1!=4){ s1+=1 }
+        else {s1= 1};
+
+      if (s2!=1){ s2-=1}
+      else {s2=4}
+    }		// end of "L" case
+
+    else if(c[i]==='R'){		// this does the same things as the if statement above for the "R" case, but moving the s1 and s2 variables in the opposite direction.
+
+       if (s1===1){ s1=4}
+        else {s1-=1};
+
+       if (s2===4){ s2=1}
+		else {s2+=1}
+     }		// end of "R" case
+
+    else{  		// this is for the "A" case and i use the swi (switch) object i made to change the s1 and s2 var for when that student needs to turn around.  I made the swi object's elmenets equal their opposite directions number.
+
+      s1=swi[s1], s2=swi[s2];
+    }		//end of "A" case
+
+    if (s1===s2){ t+=1}		// here i add  1 to t anytime  s2 and s1 are the same number meaning they are facing the same direction.
+
+  }	// end of loop
+  return t;
+
+}
+
+console.log(lineUp("LLARL")) //--> 3)
+console.log(lineUp("RLR"))	//--> 1)
+console.log(lineUp(""))		//--> , 0)
+console.log(lineUp("L"))	//--> , 0)
+console.log(lineUp("A"))	//--> , 1)
+console.log(lineUp("AAAAAAAAAAAAAAA"))	//--> , 15)
