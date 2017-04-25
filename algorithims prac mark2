@@ -1812,3 +1812,45 @@ console.log(lineUp(""))		//--> , 0)
 console.log(lineUp("L"))	//--> , 0)
 console.log(lineUp("A"))	//--> , 1)
 console.log(lineUp("AAAAAAAAAAAAAAA"))	//--> , 15)
+
+
+/*Two integer numbers are added using the column addition method. When using this method, some additions of digits produce non-zero carries to the next positions. Your task is to calculate the number of non-zero carries that will occur while adding the given numbers.
+		The numbers are added in base 10.
+Example
+	For a = 543 and b = 3456, the output should be 0
+	For a = 1927 and b = 6426, the output should be 2
+	For a = 9999 and b = 1, the output should be 4
+
+Input/Output
+	integer a   ---A positive integer.
+		Constraints: 1 ≤ a ≤ 10^7
+	integer b	---A positive integer.
+		Constraints: 1 ≤ b ≤ 10^7		*/
+
+function numberOfCarries(a, b) {
+	var a=String(a).split("").reverse(), b=String(b).split("").reverse(),t=0;		// for this challenge i reverse the a and b numbers and put them into an array as indiviual elements.  i reverse them so i can add them from the back the way you would on paper
+
+  	a=a.map( function(c){ return c*1} ), b=b.map( function(c){ return c*1} );		// here i use the map method on the a and b arrays to make each element a number and not a string.
+
+  for (var i=0; i<(a.length>b.length?  a: b).length; i++){
+
+    if ((a.length>b.length?  a: b)[i]>=10 ){ 	// this if statement checks the current element in the bigger array (which is decided by ther terinary opertor) is bigger than ten, in which case i add 1 to the next element in the bigger array and add 1 to t (total)
+
+      (a.length>b.length?  a: b)[i+1]+=1;
+      t+=1; continue; }		// end of if statement;
+
+    if (a[i]+b[i] >=10){ 		// this if statement check if adding the elements of a and b together is bigger than 10, in which case i add one to the next element in the bigger array and add 1 to the total var.
+
+      (a.length>b.length?  a: b)[i+1]+=1;
+      t+=1; continue; }		// end of if statment
+
+  }		// end of loop
+	  return 	t;
+}
+
+console.log(numberOfCarries(543,3456));		//-->0)
+console.log(numberOfCarries(1927,6426));	//-->2)
+console.log(numberOfCarries(9999,1));		//-->4)
+console.log(numberOfCarries(1234,5678));	//-->2)
+console.log(numberOfCarries(9192810, 7831159));		//-->3
+console.log(numberOfCarries(575549, 9863322));		//-->4
