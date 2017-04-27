@@ -1854,3 +1854,62 @@ console.log(numberOfCarries(9999,1));		//-->4)
 console.log(numberOfCarries(1234,5678));	//-->2)
 console.log(numberOfCarries(9192810, 7831159));		//-->3
 console.log(numberOfCarries(575549, 9863322));		//-->4
+
+
+/* A common way for prisoners to communicate secret messages with each other is to encrypt them. One such encryption algorithm goes as follows.
+
+You take the message and place it inside an nx6 matrix (adjust the number of rows depending on the message length) going from top left to bottom right (one row at a time) while replacing spaces with dots (.) and adding dots at the end of the last row (if necessary) to complete the matrix.
+
+Once the message is in the matrix you read again from top left to bottom right but this time going one column at a time and treating each column as one word.
+Example
+	The following message "Attack at noon or we are done for" is placed in a 6 * 6 matrix :
+        Attack
+        .at.no
+        on.or.
+        we.are
+        .done.
+        for...
+Reading it one column at a time we get:
+	A.ow.f tanedo tt..or a.oan. cnrre. ko.e..	*/
+function sixColumnEncryption(msg) {
+ 	var s=msg.replace(/\s+/gi,".").split(""), c=0, temp=[], out=[], output='';
+
+  	s.push(".".repeat( (Math.ceil(s.length/6)*6) -s.length) )
+    s=s.join("").split("");			// these two lines are to make sure s (string) is an finished in the last line of the matrix by adding "." until the last line in the matrix has six characters.  This is to make sure the last line is not short as many of the sentences are not evenly divisible by 6
+
+  for (var i=0; i<s.length/6; i++){
+    temp=[];		// here i reset the temp var back to empy
+
+    for (var d=0; d<6; d++ ){		// this inner loop will cycle through at six iterations each time pushing the element at c index of s into the temp arr.  I used c because of the confusion of two loops together and I was not sure how adjusting the element of s would work otherwise
+
+     	temp.push(s[c]);
+      		c+=1;
+    }	// end of inner for loop;
+
+    out.push(temp);		// here i push the temp arr into the out array
+
+  }		// end of outter for loop;
+
+  for (var i=0; i<6; i++){		// these two loops are to make the out array into a string to be returned.  this for loop is to adjust the element of the outter array in the var out
+
+    for (var d=0; d<out.length; d++){		// this inner loop adjust the element in the inner arrays of out
+
+      output+=out[d][i];
+    }		// end of inner loop
+
+    output+=" ";		// here i add a space to seperate the now encrypted rows
+
+  }		// end of outter loop
+
+  output=output.split(""), output.pop()
+  output=output.join("");		// these two lines are to remove the last space in output by changing it to an array, popping it, and then joining it back together
+
+  return output;
+}
+
+console.log(sixColumnEncryption("Attack at noon or we are done for"));
+  	//-->"A.ow.f tanedo tt..or a.oan. cnrre. ko.e..")
+console.log(sixColumnEncryption("Let's kill them all"));
+	//-->"Lkhl eie. tlm. 'l.. s.a. .tl.")
+console.log(sixColumnEncryption("Meet me behind the kitchen tomorrow at seven in the evening"));
+	//-->"Men.eoaete e.dknrtnhn eb.i.r..ei tetttosi.n .hhcoweneg miehm.v.v.")
