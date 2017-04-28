@@ -1913,3 +1913,58 @@ console.log(sixColumnEncryption("Let's kill them all"));
 	//-->"Lkhl eie. tlm. 'l.. s.a. .tl.")
 console.log(sixColumnEncryption("Meet me behind the kitchen tomorrow at seven in the evening"));
 	//-->"Men.eoaete e.dknrtnhn eb.i.r..ei tetttosi.n .hhcoweneg miehm.v.v.")
+
+
+/*You're given a sentence, where each word has different length. Swap the longest word with the shortest one, the 2nd shortest word with the 2nd longest one, and so on.
+
+Note that the resulting sentence should be correct, i.e. it should be capitalized and all words but the first one should contain only lowercase letters (except the word "I").
+Input:
+	A string of English letters and whitespace characters.
+	0 < sentence.length <= 20.
+output:
+	Correct sentence with words replaced. It should be capitalized and all words but the first one should contain only lowercase letters (except the word "I").
+
+#Examples
+
+For sentence = "I am the best", the output should be "Best the am I"
+		The word "I" and word "best" exchanged their positions; The word "am" and word "the" exchanged their positions.
+For sentence = "I am better than him", the output should be "Better than I am him"
+		The word "I" and word "better" exchanged their positions; The word "am" and word "than" exchanged their positions; The middle length word "him" remain in its original position.
+*/
+
+function replaceWords(sentence) {
+  var s=sentence.toLowerCase(), sentence=sentence.toLowerCase().split(" "), out="", compare={}, temp, asc, des;
+
+  asc= s.split(" ").sort( function (a,b){ return a.length-b.length } ),
+  des=s.split(" ").sort( function (a,b){ return b.length-a.length } );
+
+  for (var i=0; i<asc.length; i++){			// this loop is to make an object where the shorterst word's value is the longest word , the 2nd shortest equals the 2nd longest and so on.
+
+    compare[asc[i]]=des[i];
+  }
+
+  for (var i=0; i<sentence.length; i++){		// in this loop i make the output by running through the sentence given and at each elemnt of the sentence I use the compare object to add that words length couterpart into the output var.
+
+    out+= " " + compare[sentence[i]]
+  }
+
+  out=out.split(" "), out.shift();		// here i split the output into an array and shift out the space at the beginning, made from me adding " " before each element.
+
+  temp=out[0]; temp=temp.split("");
+  temp[0]=temp[0].toUpperCase(); temp=temp.join("");
+  out[0]= temp;				// in these  lines I make the temp var equal the first word in the new output, split that word into the seperate character, chapatalize that first letter, and then join the word back together.  Finally I make the fist word in output equal the new capitalize word
+
+  for (var i=0; i<out.length; i++){			// this loop is to capitalize all of the indivuals I's in the output
+
+    if (out[i]==="i"){ out[i]="I"}
+  }
+
+
+  return out.join(" ");
+
+}
+
+console.log(replaceWords("I am the best"));	//-->"Best the am I"
+console.log(replaceWords("No one could disentangle correctly"));
+	//-->"Disentangle correctly could no one")
+console.log(replaceWords("I am better than him")); //-->"Better than I am him"
