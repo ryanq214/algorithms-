@@ -1968,3 +1968,35 @@ console.log(replaceWords("I am the best"));	//-->"Best the am I"
 console.log(replaceWords("No one could disentangle correctly"));
 	//-->"Disentangle correctly could no one")
 console.log(replaceWords("I am better than him")); //-->"Better than I am him"
+
+
+/*	Today we will be implementing the rather chaotic recursive sequence of integers called Hofstadter Q.
+The Hofstadter Q is defined as:
+	Q(1)= Q(2) = 1
+    Q(n) = Q(n - Q(n-1) ) + Q( n-Q(n-2) ),   n>2
+    arr[i]=ar[i - arr[i-1]] + ar[ i- ar
+	As the author states in the aforementioned book:
+    It is reminiscent of the Fibonacci definition in that:
+    	each new value is a sum of two previous values-
+        but not of the immediately previous two values.
+        Instead, the two immediately previous values tell how far to count back to obtain the numbers to be added to make the new value.
+
+The function produces the starting sequence:
+1, 1, 2, 3, 3, 4, 5, 5, 6 . . .
+				  7
+Test info: 100 random tests, n is always positive		*/
+
+function hofstadterQ(n) {
+  var arr=[1,1];
+  if (arr[n] != undefined){ return arr[n] }
+  for (var i=arr.length; i<n; i++){
+    arr.push(  arr[i-  arr[i-1]] +  arr[i- arr[i-2] ] );
+  }
+  return arr[n-1];
+}
+
+console.log(hofstadterQ(1)) 	//--> 1);
+console.log(hofstadterQ(3)) 	//--> 2);
+console.log(hofstadterQ(7)) 	//--> 5);
+console.log(hofstadterQ(10))	//--> 6);
+console.log(hofstadterQ(1000)) 	//--> 502);
