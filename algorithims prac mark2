@@ -152,6 +152,7 @@ function transFactors(seq) {
     }// end of inner loop
   }//end of outer loop
 
+
   for (var x in ind){// this for loop goes through the ind object and checks the values(arrays) of each property, if their array length is at least one it pushes the property and value into the outp obj..  any factors that had a match will have at least one value in their array's.
 
     if (ind[x].length>=1){
@@ -2058,3 +2059,65 @@ console.log(C(5,2)) //--> 10);
 console.log(C(5,3)) //--> 10);
 console.log(C(5,4)) //--> 5);
 console.log(C(5,5)) //--> 1);
+
+
+/*There are n houses in a village on a circular road numbered from 1 to n starting from some house in clockwise order.
+It takes one minute to get from one house to any of two adjacent houses and there are no other roads in this village besides the circular one.
+Find the minimal time required to make all visits in the desired order starting from house 1.
+
+Input/Output
+	[input] integer n
+	The number of houses, positive integer.
+	2 ≤ n ≤ 20.
+
+[input] integer array visitsOrder
+	An array of integers (each from 1 to n, inclusive) representing the order in which you have to visit the houses.
+	1 ≤ visitsOrder.length ≤ 20,
+	1 ≤ visitsOrder[i] ≤ n.
+
+[output] an integer
+	The minimal time required to make all visits in the desired order starting from house 1.
+
+Example
+	For n = 4 and visitsOrder = [1, 3, 2, 3, 1],
+	the output should be 6.		*/
+
+function visitsOnCircularRoad(n, vo) {
+  var arr=[], pc=0, nc=0, p, n,  t=0;
+  	for (var i=0; i<n; i++){
+		arr.push(i+1);
+    }
+
+  for (var i=0; i<vo.length; i++){
+    p=0; n=0;
+	if (pc+1===vo[i]){  continue; }
+
+    while (arr[pc]!=vo[i]){
+    	if (arr[pc]===arr.length){
+          p+=1;	 pc=0; continue;
+        }
+      pc+=1; p+=1;
+    }
+
+    while (arr[nc]!= vo[i]){
+      if (arr[nc]===arr[0]){
+        n+=1;  nc=arr.length;  continue;
+      }
+      nc-=1;	n+=1;
+    }
+    //return n;
+        //return arr[pc]==vo[i];
+
+    if (n>p){ p+=t}
+    else { n+=t}
+  }
+  return t;
+  //arr=[...arr,...arr2];
+  //return c;
+
+
+}
+
+					//				  2  1  1  2
+console.log(visitsOnCircularRoad(4,[1, 3, 2, 3, 1])); 	//-->6)
+//console.log(visitsOnCircularRoad(3,[3])); 				//-->1)
