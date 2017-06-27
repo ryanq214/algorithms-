@@ -2210,3 +2210,47 @@ function lookAndSay(data,len){
 console.log(lookAndSay('1',5));  //-->['11','21','1211','111221','312211']
 console.log(lookAndSay('1259',5)); //-->
   		//['11121519', '311211151119', '13211231153119', '1113122112132115132119', '31131122211211131221151113122119']
+
+
+/*
+The dragon's curve is a self-similar fractal which can be obtained by a recursive method.
+Starting with the string D0 = 'Fa', at each step simultaneously perform the following operations:
+	replace 'a' with: 'aRbFR'
+	replace 'b' with: 'LFaLb'
+For example (spaces added for more visibility) :
+	1st iteration: Fa -> F aRbF R
+	2nd iteration: FaRbFR -> F aRbFR R LFaLb FR
+After n iteration, remove 'a' and 'b'. You will have a string with 'R','L', and 'F'. This is a set of instruction. Starting at the origin of a grid looking in the (0,1) direction, 'F' means a step forward, 'L' and 'R' mean respectively turn left and right. After executing all instructions, the trajectory will give a beautifull self-replicating pattern called 'Dragon Curve'
+The goal of this kata is to code a function wich takes one parameter n, the number of iterations needed and return the string of instruction as defined above. For example:
+  n=0, should return: 'F'
+  n=1, should return: 'FRFR'
+  n=2, should return: 'FRFRRLFLFR'
+
+n should be a number and non-negative integer. All other case should return the empty string: ''.
+*/
+
+
+Dragon = function(n) {
+  var s=["f", "a"];
+  if( typeof(n) !="number" || n<0 ){ return ""}
+  if( n===0){ return "F"}
+  for (var i=0; i<n; i++){
+    for (var d=0; d<s.length; d++){
+    	if (s[d]==="a"){ s[d]='arbfr'}
+      	if (s[d]==="b"){ s[d]='lfalb'}
+    }
+    s=s.join("");
+    s=s.split("");
+  }
+
+  s=s.filter( function(c) { if (c!= "a" && c!="b"){ return c } } );
+  s=s.map (function (c) { return c.toUpperCase() } );
+
+  return s.join("");
+
+}
+
+
+console.log(Dragon(0)); //--> 'F'
+console.log(Dragon(1)); //--> 'FRFR'
+console.log(Dragon(2)); //--> 'FRFRRLFLFR'
