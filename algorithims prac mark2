@@ -2232,25 +2232,31 @@ n should be a number and non-negative integer. All other case should return the 
 
 Dragon = function(n) {
   var s=["f", "a"];
-  if( typeof(n) !="number" || n<0 ){ return ""}
-  if( n===0){ return "F"}
-  for (var i=0; i<n; i++){
-    for (var d=0; d<s.length; d++){
+  if( typeof(n) !="number" || n<0 ||n%1 !=0){ return ""} 		// in this line I make sure that n is a postive integer.
+
+  if( n===0){ return "F"}			//Here I return "F" is n is 0 to skip the rest of the function as it is uncessary.
+
+  for (var i=0; i<n; i++){			// in this outisde loop I run it as many times as n, and at the end after the inner loop has run through I join the s array into one string and split it back into an array.  If I did not do the last two steps then the new characters (ex:'arbfr') would be one character in the array.
+
+    for (var d=0; d<s.length; d++){			// in this inner loop I run through the s array for each interation of the outside loop and change any "a"'s and "b"'s into the correct characters.
+
     	if (s[d]==="a"){ s[d]='arbfr'}
       	if (s[d]==="b"){ s[d]='lfalb'}
-    }
+    }			// end of inner loop
+
     s=s.join("");
     s=s.split("");
-  }
+  }			// end of outer loop
 
-  s=s.filter( function(c) { if (c!= "a" && c!="b"){ return c } } );
-  s=s.map (function (c) { return c.toUpperCase() } );
+  s=s.filter( function(c) { if (c!= "a" && c!="b"){ return c } } );			// in this filter function I get rid of all "a" and "b" characters
+
+  s=s.map (function (c) { return c.toUpperCase() } );			//this map function is to make every character in the s array capitalized.
 
   return s.join("");
 
 }
 
 
-console.log(Dragon(0)); //--> 'F'
+console.log(Dragon(0.2)); //--> 'F'
 console.log(Dragon(1)); //--> 'FRFR'
 console.log(Dragon(2)); //--> 'FRFRRLFLFR'
