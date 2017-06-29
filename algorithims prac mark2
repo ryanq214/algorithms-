@@ -2248,15 +2248,15 @@ Dragon = function(n) {
     s=s.split("");
   }			// end of outer loop
 
-  s=s.filter( function(c) { if (c!= "a" && c!="b"){ return c } } );			// in this filter function I get rid of all "a" and "b" characters
+  s=s.join("").replace(/[ab]/g, "")		// in this filter function I get rid of all "a" and "b" characters
 
-  s=s.map (function (c) { return c.toUpperCase() } );			//this map function is to make every character in the s array capitalized.
+  s=s.split("").map (function (c) { return c.toUpperCase() } );			//this map function is to make every character in the s array capitalized.
 
   return s.join("");
 
 }
 
 
-console.log(Dragon(0.2)); //--> 'F'
+console.log(Dragon(0)); //--> 'F'
 console.log(Dragon(1)); //--> 'FRFR'
 console.log(Dragon(2)); //--> 'FRFRRLFLFR'
