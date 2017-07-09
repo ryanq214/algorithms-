@@ -2296,7 +2296,6 @@ console.log(beggars([1,2,3,4,5],6) ); //-->[1,2,3,4,5,0]
 console.log(beggars([1,2,3,4,5],0) ); //-->[]
 
 
-still in progress
 /*. The array should be transformed, doing the following steps:
     each value of the array, ni, will be substituted by the value (ni + μ) / μ
 μ = (Σ ni) / k (mean of the array)
@@ -2334,42 +2333,38 @@ The tests for the function will have the following features:
 
 
 function areContigElemenCloseEnough(arr, absError) {
-  for (var i=0; i<arr.length; i++){
-    if (arr[i] - arr[i + 1] > absError ){ return false }
-  }
+  for (var i=0; i<arr.length; i++){		// this loop checks every element in arr to make sure that, when put in the formula given in the description, it is less than or equal to the absolute error value give.  If any of them are not then it immeditately returns false.
+
+    if ( Math.abs(arr[i] - arr[i + 1]) > absError ){ return false }
+  }			// end of loop
     return true;
 }
 
-var z=0;
+
+
 
 function simulCloseTo2(arr, absError){
     var count=0, mean=0;
 
   mean =arr.reduce(function (t,c) { return t+=c; } );
-  mean= mean/ arr.length;
+  mean= mean/ arr.length;			//these two lines are to create the mean variable based on the current values in the arr array.
 
-    //arr[arr.length]=0;
+  for ( var i=0; i<arr.length; i++){		// this loop is to adjust each element in arr to the new vlaue usign the mean var and formula given in the description
 
-  for ( var i=0; i<arr.length; i++){
       arr[i]= (arr[i] + mean)/ mean;
-    }
+    }			// end of loop
 
-  //return arr;
+  count+=1;			// here I adjust the count by 1 for this run of the function
 
-  count+=1;
+  if( areContigElemenCloseEnough(arr, absError) ) { return 1 }			//this line checks to see if the current array values return true when put in the areContigElemenCloseEnough function.  If they are they I return 1 from this iteration of the function back up the line
 
-  if(areContigElemenCloseEnough(arr, absError)=== true ) { return count +=1 }
-
-
-   return count += simulCloseTo2(arr, absError)
+   return count += simulCloseTo2(arr, absError)			// this line runs the function again recursivley in case the line above does not return true
 }
 
 
 console.log(simulCloseTo2([12, 7, 23], 1e-5) );  //--> 18
 console.log(simulCloseTo2([12, 7, 23], 1e-8) );  //--> 28
 console.log(simulCloseTo2([12, 7, 23], 1e-12) );  //--> 42
-
-console.log( "////");
 
 console.log(simulCloseTo2([12, 7, 23, 34, 67, 89], 1e-6) );  //--> 21
 console.log(simulCloseTo2([12, 7, 23, 34, 67, 89], 1e-9) );  //--> 31
